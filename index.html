@@ -3,24 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>📖 로그인교회 김시웅 권사 & 최현경 권사 성경통독 포털</title>
+  <title>✝️ 로그인교회 갓피플 3번역본 성경 포털</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.85);
+      --bg-color: #0b132b;
+      --card-bg: rgba(28, 37, 65, 0.9);
       --card-border: rgba(255, 255, 255, 0.1);
+      --accent-gold: #d4af37;
       --accent-green: #10b981;
-      --accent-blue: #3b82f6;
-      --accent-gold: #f59e0b;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', -apple-system, sans-serif; }
     body {
-      background: linear-gradient(135deg, #0b132b 0%, #1c2541 50%, #0f172a 100%);
+      background: linear-gradient(135deg, #0b132b 0%, #1c2541 100%);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
@@ -29,123 +28,37 @@
       justify-content: center;
       padding: 1.5rem;
     }
-    .container {
-      width: 100%;
-      max-width: 500px;
-      text-align: center;
-    }
+    .container { width: 100%; max-width: 500px; text-align: center; }
     .logo-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: var(--accent-green);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin-bottom: 1.2rem;
+      display: inline-flex; align-items: center; gap: 8px; background: rgba(212, 175, 55, 0.15); border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 6px 18px; border-radius: 20px; font-size: 0.9rem; font-weight: 800; margin-bottom: 1.2rem;
     }
-    h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: #ffffff;
-      letter-spacing: -0.5px;
-      margin-bottom: 0.5rem;
-    }
-    p.subtitle {
-      color: var(--text-muted);
-      font-size: 0.98rem;
-      margin-bottom: 2rem;
-      word-break: keep-all;
-    }
-    .cards-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
+    h1 { font-size: 1.9rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+    p.subtitle { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 2rem; word-break: keep-all; }
+    .cards-grid { display: flex; flex-direction: column; gap: 1.2rem; }
     .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 1.5rem;
-      text-decoration: none;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--card-border); border-radius: 18px; padding: 1.5rem; text-decoration: none; color: var(--text-main); display: flex; align-items: center; justify-content: space-between; transition: all 0.25s ease; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
-    .card:hover, .card:active {
-      transform: translateY(-3px);
-      border-color: var(--accent-green);
-      box-shadow: 0 12px 32px rgba(16, 185, 129, 0.25);
-      background: rgba(30, 41, 59, 0.95);
-    }
-    .card-info {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      text-align: left;
-    }
-    .avatar {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      flex-shrink: 0;
-    }
-    .avatar.siwoong { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
-    .avatar.hyunkyung { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
-    
-    .member-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #ffffff;
-      margin-bottom: 2px;
-    }
-    .member-sub {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-    .arrow-icon {
-      font-size: 1.2rem;
-      color: var(--accent-green);
-      opacity: 0.8;
-      transition: transform 0.2s;
-    }
-    .card:hover .arrow-icon {
-      transform: translateX(4px);
-      opacity: 1;
-    }
-    .footer {
-      margin-top: 2.5rem;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      opacity: 0.7;
-    }
+    .card:hover, .card:active { transform: translateY(-3px); border-color: var(--accent-gold); box-shadow: 0 12px 32px rgba(212, 175, 55, 0.25); }
+    .card-info { display: flex; align-items: center; gap: 1rem; text-align: left; }
+    .avatar { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; background: linear-gradient(135deg, #d4af37 0%, #b48811 100%); }
+    .member-title { font-size: 1.2rem; font-weight: 700; color: #ffffff; margin-bottom: 2px; }
+    .member-sub { font-size: 0.85rem; color: var(--text-muted); }
+    .arrow-icon { font-size: 1.2rem; color: var(--accent-gold); }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="logo-badge">📖 로그인교회 3번역본 성경통독</div>
-    <h1>전체성경 통독 일기장 포털</h1>
-    <p class="subtitle">권사님 성함 카드를 선택하시면 전용 3번역본 성경통독 앱으로 연결됩니다.</p>
+    <div class="logo-badge">✝️ 갓피플 성경 스타일</div>
+    <h1>전체성경 3번역본 포털</h1>
+    <p class="subtitle">권사님 성함 카드를 선택하시면 갓피플 성경 스타일 전용 앱으로 바로 이동합니다.</p>
 
     <div class="cards-grid">
       <a href="./siwoong.html" class="card">
         <div class="card-info">
-          <div class="avatar siwoong">🙏</div>
+          <div class="avatar">🙏</div>
           <div>
             <div class="member-title">김시웅 권사님</div>
-            <div class="member-sub">전용 3번역본 성경통독 & 구절노트 앱</div>
+            <div class="member-sub">갓피플 스타일 전체 66권 3번역본 성경</div>
           </div>
         </div>
         <div class="arrow-icon">➔</div>
@@ -153,18 +66,14 @@
 
       <a href="./hyunkyung.html" class="card">
         <div class="card-info">
-          <div class="avatar hyunkyung">🌸</div>
+          <div class="avatar">🌸</div>
           <div>
             <div class="member-title">최현경 권사님</div>
-            <div class="member-sub">전용 3번역본 성경통독 & 구절노트 앱</div>
+            <div class="member-sub">갓피플 스타일 전체 66권 3번역본 성경</div>
           </div>
         </div>
         <div class="arrow-icon">➔</div>
       </a>
-    </div>
-
-    <div class="footer">
-      © 2026 Login Church Dedicated 3-Version Bible Reading Journal
     </div>
   </div>
 </body>
