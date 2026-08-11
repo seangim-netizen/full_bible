@@ -22,11 +22,12 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
     
     html, body {
-      height: 100%; width: 100%; background-color: var(--bg-color); color: var(--text-primary); display: flex; flex-direction: column; overflow: hidden;
+      height: 100%; width: 100%; background-color: var(--bg-color); color: var(--text-primary); display: flex; flex-direction: column; overflow: hidden; position: relative;
     }
     
+    /* 상단 헤더 - 독립 레이어 (z-index 1000) */
     .app-header {
-      height: 56px; padding-top: env(safe-area-inset-top, 0px); background: #1e293b; padding-left: 14px; padding-right: 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); flex-shrink: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      height: 56px; min-height: 56px; padding-top: env(safe-area-inset-top, 0px); background: #1e293b; padding-left: 12px; padding-right: 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); flex-shrink: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.3); position: relative; gap: 6px;
     }
     .logo-title { display: flex; align-items: center; gap: 6px; font-weight: 800; color: var(--accent-green); font-size: 1.05rem; white-space: nowrap; }
     .logo-title img { height: 26px; border-radius: 4px; vertical-align: middle; }
@@ -35,7 +36,7 @@
       display: flex; align-items: center; gap: 4px; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-green); border-radius: 20px; padding: 3px 8px;
     }
     .ch-btn-arrow {
-      background: none; border: none; color: #34d399; font-size: 1rem; font-weight: bold; padding: 4px 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      background: none; border: none; color: #34d399; font-size: 1.05rem; font-weight: bold; padding: 4px 8px; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
     .ch-btn-arrow:active { transform: scale(0.9); }
     .ch-title-btn {
@@ -45,9 +46,10 @@
     .header-tools { display: flex; align-items: center; gap: 4px; }
     .tool-btn { background: #0f172a; border: 1px solid var(--border-color); color: #fff; width: 34px; height: 34px; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-    .app-container { flex: 1 1 auto; position: relative; overflow: hidden; width: 100%; }
+    /* 메인 컨테이너 (헤더와 하단 바 사이) */
+    .app-container { flex: 1 1 auto; display: flex; flex-direction: column; overflow: hidden; position: relative; width: 100%; height: 100%; }
     
-    .tab-page { position: absolute; inset: 0; width: 100%; height: 100%; display: none; flex-direction: column; padding: 16px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .tab-page { flex: 1 1 auto; width: 100%; height: 100%; display: none; flex-direction: column; padding: 14px; overflow-y: auto; -webkit-overflow-scrolling: touch; box-sizing: border-box; }
     .tab-page.active { display: flex !important; }
 
     .subbar {
@@ -63,9 +65,11 @@
     .play-btn { background: var(--accent-green); color: #fff; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 800; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; gap: 6px; }
     .play-btn.playing { background: #ef4444; color: #fff; }
 
-    .bible-verse-item { background: #1e293b; border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; border-left: 4px solid var(--accent-green); font-size: var(--font-size-base); line-height: 1.8; word-break: keep-all; position: relative; transition: all 0.2s ease; cursor: pointer; border: 1px solid var(--border-color); }
-    .bible-verse-item:hover { border-color: var(--accent-green); }
-    .bible-verse-item.active-tts { background: #064e3b !important; border-left-color: var(--accent-gold) !important; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
+    .verse-card {
+      background: #1e293b; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; border-left: 4px solid var(--accent-green); font-size: var(--font-size-base); line-height: 1.8; word-break: keep-all; position: relative; transition: all 0.2s ease; cursor: pointer; border: 1px solid var(--border-color);
+    }
+    .verse-card:hover { border-color: var(--accent-green); }
+    .verse-card.active-tts { background: #064e3b !important; border-left-color: var(--accent-gold) !important; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
 
     .hl-yellow { background: rgba(253, 224, 71, 0.22) !important; border-left-color: #fde047 !important; }
     .hl-green { background: rgba(52, 211, 153, 0.22) !important; border-left-color: #34d399 !important; }
@@ -73,7 +77,7 @@
     .hl-blue { background: rgba(96, 165, 250, 0.22) !important; border-left-color: #60a5fa !important; }
     .hl-gold { background: rgba(245, 158, 11, 0.22) !important; border-left-color: #f59e0b !important; }
 
-    .verse-num { font-weight: bold; color: #34d399; margin-right: 8px; font-size: 0.95rem; }
+    .verse-num { font-weight: 800; color: #34d399; font-size: 0.95rem; margin-right: 6px; }
     
     .parallel-block { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.12); font-size: 0.95em; color: var(--text-secondary); line-height: 1.7; }
     .badge { font-weight: 700; font-size: 0.78rem; padding: 2px 6px; border-radius: 4px; margin-right: 6px; display: inline-block; }
@@ -83,14 +87,11 @@
     .memo-tag { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: var(--accent-gold); border-radius: 8px; padding: 8px 12px; margin-top: 10px; font-size: 0.88rem; line-height: 1.5; }
 
     .complete-card { background: #1e293b; border: 2px solid var(--accent-green); border-radius: 12px; padding: 18px; text-align: center; margin-top: 20px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); }
-    .btn-complete { width: 100%; padding: 16px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .btn-complete.not-completed { background: var(--accent-green); color: #ffffff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
-    .btn-complete.not-completed:hover { background: #059669; }
-    .btn-complete.completed { background: #065f46; color: #34d399; border: 1px solid #10b981; }
+    .btn-complete { width: 100%; padding: 16px; font-size: 1.05rem; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
     .journal-box { background: #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border-color); }
     .journal-box-title { font-size: 1.05rem; font-weight: bold; color: var(--accent-green); margin-bottom: 8px; }
-    textarea { width: 100%; min-height: 160px; background: #0f172a; border: 1px solid var(--border-color); border-radius: 8px; color: #fff; padding: 12px; font-size: 1rem; resize: vertical; outline: none; line-height: 1.6; }
+    textarea { width: 100%; min-height: 140px; background: #0f172a; border: 1px solid var(--border-color); border-radius: 8px; color: #fff; padding: 12px; font-size: 1rem; resize: vertical; outline: none; line-height: 1.6; }
 
     .progress-box { background: #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border-color); }
     .progress-bar-bg { background: #0f172a; height: 10px; border-radius: 5px; overflow: hidden; margin: 8px 0; }
@@ -100,8 +101,8 @@
     .schedule-card.active { border-color: var(--accent-green); background: #064e3b; }
     .schedule-card.is-done { border-left: 4px solid var(--accent-green); }
 
-    .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(8px); display: none; flex-direction: column; z-index: 2500; padding: 16px; }
-    .modal-overlay.active { display: flex !important; }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(8px); display: none; flex-direction: column; z-index: 2500; padding: 16px; pointer-events: none; }
+    .modal-overlay.active { display: flex !important; pointer-events: auto !important; }
     .book-tabs { display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
     .btab { flex: 1; background: #1e293b; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.95rem; cursor: pointer; text-align: center; }
     .btab.active { background: var(--accent-green); color: #fff; font-weight: 800; }
@@ -114,13 +115,14 @@
     .ch-item { background: #1e293b; border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 8px; padding: 12px 6px; font-size: 0.95rem; font-weight: 700; text-align: center; cursor: pointer; }
     .ch-item:hover { background: var(--accent-green); color: #fff; }
 
-    .action-modal { position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; border-top: 1px solid var(--accent-green); border-radius: 20px 20px 0 0; padding: 16px; display: none; flex-direction: column; gap: 12px; z-index: 2000; box-shadow: 0 -8px 24px rgba(0,0,0,0.5); }
-    .action-modal.active { display: flex !important; }
+    .action-modal { position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; border-top: 1px solid var(--accent-green); border-radius: 20px 20px 0 0; padding: 16px; display: none; flex-direction: column; gap: 12px; z-index: 2000; box-shadow: 0 -8px 24px rgba(0,0,0,0.5); pointer-events: none; }
+    .action-modal.active { display: flex !important; pointer-events: auto !important; }
     .color-picker { display: flex; justify-content: space-around; padding: 8px 0; }
     .color-dot { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
 
+    /* 하단 버튼 메뉴 - 독립 레이어 (z-index 2000) */
     .mobile-bottom-nav {
-      height: 60px; min-height: 60px; padding-bottom: env(safe-area-inset-bottom, 0px); background: #1e293b; border-top: 1px solid var(--border-color); display: flex; width: 100%; flex-shrink: 0; z-index: 1000;
+      height: 60px; min-height: 60px; padding-bottom: env(safe-area-inset-bottom, 0px); background: #1e293b; border-top: 1px solid var(--border-color); display: flex; width: 100%; flex-shrink: 0; z-index: 2000; position: relative;
     }
     .nav-tab-item { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-secondary); font-size: 0.85rem; font-weight: bold; cursor: pointer; border: none; background: none; }
     .nav-tab-item.active { color: var(--accent-green); background: #334155; }
@@ -132,72 +134,10 @@
     if (!window.BIBLE_FULL_DB) window.BIBLE_FULL_DB = {};
   </script>
 
-  <script src="bible_1Chronicles.js?v=20260811_full"></script>
-  <script src="bible_1Corinthians.js?v=20260811_full"></script>
-  <script src="bible_1John.js?v=20260811_full"></script>
-  <script src="bible_1Kings.js?v=20260811_full"></script>
-  <script src="bible_1Peter.js?v=20260811_full"></script>
-  <script src="bible_1Samuel.js?v=20260811_full"></script>
-  <script src="bible_1Thessalonians.js?v=20260811_full"></script>
-  <script src="bible_1Timothy.js?v=20260811_full"></script>
-  <script src="bible_2Chronicles.js?v=20260811_full"></script>
-  <script src="bible_2Corinthians.js?v=20260811_full"></script>
-  <script src="bible_2John.js?v=20260811_full"></script>
-  <script src="bible_2Kings.js?v=20260811_full"></script>
-  <script src="bible_2Peter.js?v=20260811_full"></script>
-  <script src="bible_2Samuel.js?v=20260811_full"></script>
-  <script src="bible_2Thessalonians.js?v=20260811_full"></script>
-  <script src="bible_2Timothy.js?v=20260811_full"></script>
-  <script src="bible_3John.js?v=20260811_full"></script>
-  <script src="bible_Acts.js?v=20260811_full"></script>
-  <script src="bible_Amos.js?v=20260811_full"></script>
-  <script src="bible_Colossians.js?v=20260811_full"></script>
-  <script src="bible_Daniel.js?v=20260811_full"></script>
-  <script src="bible_Deuteronomy.js?v=20260811_full"></script>
-  <script src="bible_Ecclesiastes.js?v=20260811_full"></script>
-  <script src="bible_Ephesians.js?v=20260811_full"></script>
-  <script src="bible_Esther.js?v=20260811_full"></script>
-  <script src="bible_Exodus.js?v=20260811_full"></script>
-  <script src="bible_Ezekiel.js?v=20260811_full"></script>
-  <script src="bible_Ezra.js?v=20260811_full"></script>
-  <script src="bible_Galatians.js?v=20260811_full"></script>
-  <script src="bible_Genesis.js?v=20260811_full"></script>
-  <script src="bible_Habakkuk.js?v=20260811_full"></script>
-  <script src="bible_Haggai.js?v=20260811_full"></script>
-  <script src="bible_Hebrews.js?v=20260811_full"></script>
-  <script src="bible_Hosea.js?v=20260811_full"></script>
-  <script src="bible_Isaiah.js?v=20260811_full"></script>
-  <script src="bible_James.js?v=20260811_full"></script>
-  <script src="bible_Jeremiah.js?v=20260811_full"></script>
-  <script src="bible_Job.js?v=20260811_full"></script>
-  <script src="bible_Joel.js?v=20260811_full"></script>
-  <script src="bible_John.js?v=20260811_full"></script>
-  <script src="bible_Jonah.js?v=20260811_full"></script>
-  <script src="bible_Joshua.js?v=20260811_full"></script>
-  <script src="bible_Jude.js?v=20260811_full"></script>
-  <script src="bible_Judges.js?v=20260811_full"></script>
-  <script src="bible_Lamentations.js?v=20260811_full"></script>
-  <script src="bible_Leviticus.js?v=20260811_full"></script>
-  <script src="bible_Luke.js?v=20260811_full"></script>
-  <script src="bible_Malachi.js?v=20260811_full"></script>
-  <script src="bible_Mark.js?v=20260811_full"></script>
-  <script src="bible_Matthew.js?v=20260811_full"></script>
-  <script src="bible_Micah.js?v=20260811_full"></script>
-  <script src="bible_Nahum.js?v=20260811_full"></script>
-  <script src="bible_Nehemiah.js?v=20260811_full"></script>
-  <script src="bible_Numbers.js?v=20260811_full"></script>
-  <script src="bible_Obadiah.js?v=20260811_full"></script>
-  <script src="bible_Philemon.js?v=20260811_full"></script>
-  <script src="bible_Philippians.js?v=20260811_full"></script>
-  <script src="bible_Proverbs.js?v=20260811_full"></script>
-  <script src="bible_Psalms.js?v=20260811_full"></script>
-  <script src="bible_Revelation.js?v=20260811_full"></script>
-  <script src="bible_Romans.js?v=20260811_full"></script>
-  <script src="bible_Ruth.js?v=20260811_full"></script>
-  <script src="bible_SongofSolomon.js?v=20260811_full"></script>
-  <script src="bible_Titus.js?v=20260811_full"></script>
-  <script src="bible_Zechariah.js?v=20260811_full"></script>
-  <script src="bible_Zephaniah.js?v=20260811_full"></script>
+  <!-- 3 Ultra-Reliable Data Files (~1.7MB each) -->
+  <script src="bible_part1.js?v=20260811_fresh"></script>
+  <script src="bible_part2.js?v=20260811_fresh"></script>
+  <script src="bible_part3.js?v=20260811_fresh"></script>
 
 </head>
 <body>
@@ -344,7 +284,7 @@
     </div>
   </div>
 
-  <!-- 하단 탭 네비게이션 - 100% 원본 통독클럽 동일 구도 -->
+  <!-- 하단 탭 네비게이션 -->
   <nav class="mobile-bottom-nav">
     <button class="nav-tab-item active" id="btn-tab-reader" onclick="window.switchTab('reader')">
       <span class="nav-tab-icon">📖</span>
@@ -588,7 +528,7 @@
 
         ttsVersesList.push({ id: 'v_' + vNum, text: currentBook + ' ' + currentChapter + '장 ' + vNum + '절. ' + textGAE });
 
-        html += '<div id="v_' + vNum + '" class="bible-verse-item ' + hlClass + '" onclick="window.openActionModal('' + currentBook + '', ' + currentChapter + ', ' + vNum + ')">';
+        html += '<div id="v_' + vNum + '" class="verse-card ' + hlClass + '" onclick="window.openActionModal('' + currentBook + '', ' + currentChapter + ', ' + vNum + ')">';
         html += '  <div><span class="verse-num">' + vNum + '.</span> ' + textGAE + '</div>';
 
         if (viewMode === 'dual' || viewMode === 'triple') {
@@ -769,7 +709,7 @@
       if (ic) ic.innerText = '▶️';
       if (tx) tx.innerText = '음성 낭독';
       if (bt) bt.classList.remove('playing');
-      document.querySelectorAll('.bible-verse-item').forEach(function(el) { el.classList.remove('active-tts'); });
+      document.querySelectorAll('.verse-card').forEach(function(el) { el.classList.remove('active-tts'); });
     };
 
     function speakCurrentVerse() {
@@ -778,7 +718,7 @@
         return;
       }
 
-      document.querySelectorAll('.bible-verse-item').forEach(function(el) { el.classList.remove('active-tts'); });
+      document.querySelectorAll('.verse-card').forEach(function(el) { el.classList.remove('active-tts'); });
       var item = ttsVersesList[currentTTSIndex];
       var el = document.getElementById(item.id);
       if (el) {
@@ -893,7 +833,7 @@
         var hl = verseHighlights[key] || '';
         var memo = verseMemos[key] || '';
 
-        html += '<div class="bible-verse-item ' + hl + '">';
+        html += '<div class="verse-card ' + hl + '">';
         html += '  <div style="font-weight:bold; color:var(--accent-green); margin-bottom:4px;">📖 ' + bName + ' ' + c + '장 ' + vNum + '절</div>';
         html += '  <div>"' + verseText + '"</div>';
         if (memo) html += '  <div class="memo-tag">✍️ 묵상: ' + memo + '</div>';
