@@ -76,284 +76,8 @@
   <script src="bible_3John.js"></script>
   <script src="bible_Jude.js"></script>
   <script src="bible_Revelation.js"></script>
-  <style>
-    :root {
-      --bg-dark: #0f172a;
-      --card-dark: #1e293b;
-      --border-dark: #334155;
-      --accent-green: #10b981;
-      --accent-gold: #f59e0b;
-      --accent-blue: #3b82f6;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --font-size-base: 17px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
-    
-    html, body {
-      height: 100%; width: 100%; background-color: var(--bg-dark); color: var(--text-main); display: flex; flex-direction: column; overflow: hidden;
-    }
-
-    /* 상단 헤더 */
-    .app-header {
-      height: 60px; padding-top: env(safe-area-inset-top, 0px); background: #1e293b; padding-left: 10px; padding-right: 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-dark); flex-shrink: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.3); gap: 6px;
-    }
-    .logo-title { display: flex; align-items: center; gap: 6px; font-weight: 800; color: var(--accent-green); font-size: 1.05rem; white-space: nowrap; }
-    .logo-title img { height: 26px; border-radius: 4px; vertical-align: middle; }
-
-    /* 1장씩 이동 헤더 컨트롤러 (◀ 출애굽기 1장 ▾ ▶) */
-    .nav-ch-bar {
-      display: flex; align-items: center; gap: 4px; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-green); border-radius: 20px; padding: 3px 8px;
-    }
-    .ch-btn-arrow {
-      background: none; border: none; color: #34d399; font-size: 1rem; font-weight: bold; padding: 3px 6px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    }
-    .ch-btn-arrow:active { transform: scale(0.9); }
-    .ch-title-btn {
-      background: none; border: none; color: #34d399; font-weight: 800; font-size: 0.92rem; cursor: pointer; padding: 2px 4px; white-space: nowrap;
-    }
-
-    .header-tools { display: flex; align-items: center; gap: 4px; }
-    .tool-btn { background: #0f172a; border: 1px solid var(--border-dark); color: #fff; width: 32px; height: 32px; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    
-    .app-body { flex: 1 1 auto; position: relative; overflow: hidden; width: 100%; }
-    
-    .tab-content { position: absolute; inset: 0; width: 100%; height: 100%; display: none; flex-direction: column; padding: 14px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-    .tab-content.active { display: flex !important; }
-
-    .subbar {
-      display: flex; align-items: center; justify-content: space-between; background: #1e293b; border: 1px solid var(--border-dark); border-radius: 12px; padding: 8px 12px; margin-bottom: 12px; flex-shrink: 0; gap: 8px;
-    }
-    .mode-group { display: flex; gap: 4px; background: #0f172a; padding: 3px; border-radius: 8px; }
-    .mode-btn { background: none; border: none; color: var(--text-muted); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer; }
-    .mode-btn.active { background: var(--accent-green); color: #fff; font-weight: 800; }
-
-    .audio-bar {
-      display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid var(--accent-green); border-radius: 14px; padding: 10px 14px; margin-bottom: 12px; flex-shrink: 0; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.2);
-    }
-    .play-btn { background: var(--accent-green); color: #fff; border: none; padding: 7px 16px; border-radius: 20px; font-weight: 800; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-    .play-btn.playing { background: #ef4444; color: #fff; }
-
-    .verse-card {
-      background: #1e293b; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; border-left: 4px solid var(--accent-green); font-family: 'Noto Serif KR', serif; font-size: var(--font-size-base); line-height: 1.85; word-break: keep-all; position: relative; transition: all 0.2s ease; cursor: pointer; border: 1px solid var(--border-dark);
-    }
-    .verse-card:hover { border-color: var(--accent-green); }
-    .verse-card.active-tts { background: #064e3b !important; border-left-color: var(--accent-gold) !important; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
-
-    .hl-yellow { background: rgba(253, 224, 71, 0.22) !important; border-left-color: #fde047 !important; }
-    .hl-green { background: rgba(52, 211, 153, 0.22) !important; border-left-color: #34d399 !important; }
-    .hl-pink { background: rgba(244, 114, 182, 0.22) !important; border-left-color: #f472b6 !important; }
-    .hl-blue { background: rgba(96, 165, 250, 0.22) !important; border-left-color: #60a5fa !important; }
-    .hl-gold { background: rgba(245, 158, 11, 0.22) !important; border-left-color: #f59e0b !important; }
-
-    .verse-num { font-family: 'Pretendard', sans-serif; font-weight: 800; color: #34d399; font-size: 0.95rem; margin-right: 6px; }
-    
-    .parallel-block { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.12); font-size: 0.95em; color: var(--text-muted); line-height: 1.7; }
-    .badge { font-family: 'Pretendard', sans-serif; font-weight: 700; font-size: 0.78rem; padding: 2px 6px; border-radius: 4px; margin-right: 6px; display: inline-block; }
-    .badge.sb { background: rgba(56, 189, 248, 0.2); color: var(--accent-blue); }
-    .badge.kh { background: rgba(245, 158, 11, 0.2); color: var(--accent-gold); }
-
-    .memo-tag { font-family: 'Pretendard', sans-serif; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: var(--accent-gold); border-radius: 8px; padding: 8px 12px; margin-top: 10px; font-size: 0.88rem; line-height: 1.5; }
-
-    /* 66권 선택 그리드 모달 */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(8px); display: none; flex-direction: column; z-index: 2500; padding: 16px;
-    }
-    .modal-overlay.active { display: flex !important; }
-    .book-tabs { display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--border-dark); padding-bottom: 8px; }
-    .btab { flex: 1; background: #1e293b; border: 1px solid var(--border-dark); color: var(--text-muted); padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.95rem; cursor: pointer; text-align: center; }
-    .btab.active { background: var(--accent-green); color: #fff; font-weight: 800; }
-    
-    .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; overflow-y: auto; flex: 1; padding-right: 4px; }
-    .book-item { background: #1e293b; border: 1px solid var(--border-dark); color: var(--text-main); border-radius: 8px; padding: 12px 6px; font-size: 0.88rem; font-weight: 700; text-align: center; cursor: pointer; transition: all 0.2s; }
-    .book-item:hover, .book-item.selected { background: var(--accent-green); color: #fff; border-color: var(--accent-green); }
-
-    .ch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(55px, 1fr)); gap: 8px; overflow-y: auto; flex: 1; padding-right: 4px; }
-    .ch-item { background: #1e293b; border: 1px solid var(--border-dark); color: var(--text-main); border-radius: 8px; padding: 12px 6px; font-size: 0.95rem; font-weight: 700; text-align: center; cursor: pointer; }
-    .ch-item:hover { background: var(--accent-green); color: #fff; }
-
-    .action-modal {
-      position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; border-top: 1px solid var(--accent-green); border-radius: 20px 20px 0 0; padding: 16px; display: none; flex-direction: column; gap: 12px; z-index: 2000; box-shadow: 0 -8px 24px rgba(0,0,0,0.5);
-    }
-    .action-modal.active { display: flex !important; }
-    .color-picker { display: flex; justify-content: space-around; padding: 8px 0; }
-    .color-dot { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
-
-    .nav-bar {
-      height: 60px; min-height: 60px; padding-bottom: env(safe-area-inset-bottom, 0px); background: #1e293b; border-top: 1px solid var(--border-dark); display: flex; width: 100%; flex-shrink: 0; z-index: 1000;
-    }
-    .nav-item { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-muted); font-size: 0.82rem; font-weight: bold; cursor: pointer; border: none; background: none; }
-    .nav-item.active { color: var(--accent-green); background: #334155; }
-    .nav-icon { font-size: 1.25rem; margin-bottom: 2px; }
-  </style>
-</head>
-<body>
-
-  <!-- 상단 헤더 -->
-  <header class="app-header">
-    <div class="logo-title">
-      <img src="app_logo.png" alt="로고" onerror="this.style.display='none'">
-      <span>김시웅권사</span>
-    </div>
-    
-    <!-- 1장씩 이동 롤러 (◀ 출애굽기 1장 ▾ ▶) -->
-    <div class="nav-ch-bar">
-      <button class="ch-btn-arrow" onclick="window.prevChapter()" title="이전장">◀</button>
-      <button class="ch-title-btn" onclick="window.openBookSelector()"><span id="headerChapterTitle">출애굽기 1장</span> ▾</button>
-      <button class="ch-btn-arrow" onclick="window.nextChapter()" title="다음장">▶</button>
-    </div>
-
-    <div class="header-tools">
-      <button class="tool-btn" title="글자 작게" onclick="window.changeFontSize(-1)">A-</button>
-      <button class="tool-btn" title="글자 크게" onclick="window.changeFontSize(1)">A+</button>
-    </div>
-  </header>
-
-  <div class="app-body">
-    <!-- TAB 1: 성경 본문 읽기 (1장씩 읽기) -->
-    <section id="tab-reader" class="tab-content active">
-      <div class="subbar">
-        <div style="font-size:0.85rem; font-weight:700; color:var(--accent-green);">📜 번역본 보기 설정</div>
-        <div class="mode-group">
-          <button id="btnModeSingle" class="mode-btn active" onclick="window.setViewMode('single')">단일</button>
-          <button id="btnModeDual" class="mode-btn" onclick="window.setViewMode('dual')">2개 대조</button>
-          <button id="btnModeTriple" class="mode-btn" onclick="window.setViewMode('triple')">3개 대조</button>
-        </div>
-      </div>
-
-      <div class="audio-bar">
-        <button id="btnTTSPlay" class="play-btn" onclick="window.toggleTTS()">
-          <span id="ttsIcon">▶️</span> <span id="ttsText">음성 낭독</span>
-        </button>
-        <div style="display:flex; align-items:center; gap:6px;">
-          <button class="tool-btn" style="width:auto; padding:0 8px;" onclick="window.prevVerseTTS()">⏮️</button>
-          <button class="tool-btn" style="width:auto; padding:0 8px;" onclick="window.nextVerseTTS()">⏭️</button>
-          <select id="ttsSpeed" style="background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:4px 8px; border-radius:6px; font-weight:bold;" onchange="window.changeTTSSpeed(this.value)">
-            <option value="0.8">0.8x</option>
-            <option value="1.0" selected>1.0x</option>
-            <option value="1.2">1.2x</option>
-            <option value="1.5">1.5x</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="bibleTextContainer"></div>
-      
-      <div style="background:#1e293b; border:2px solid var(--accent-green); border-radius:14px; padding:16px; text-align:center; margin:20px 0 30px 0;">
-        <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom:10px;" id="completeCardSubtext">현재 장 읽기를 완료하셨나요?</div>
-        <button id="btnToggleComplete" style="width:100%; padding:14px; background:var(--accent-green); color:#fff; border:none; border-radius:10px; font-weight:bold; font-size:1.05rem; cursor:pointer;" onclick="window.toggleCurrentChapterComplete()">
-          ✅ 오늘 장 읽기 완료하기
-        </button>
-      </div>
-    </section>
-
-    <!-- TAB 2: 형광펜 및 메모 모음 -->
-    <section id="tab-notes" class="tab-content">
-      <div style="font-size: 1.1rem; font-weight: 800; color: var(--accent-green); margin-bottom: 12px;">
-        🎨 성경 형광펜 & 묵상 메모 모음
-      </div>
-      <div id="highlightsContainer"></div>
-    </section>
-
-    <!-- TAB 3: 66권 전체 장별 체크리스트 통독표 -->
-    <section id="tab-schedule" class="tab-content">
-      <div style="background:#1e293b; padding:16px; border-radius:14px; border:1px solid var(--border-dark); margin-bottom:14px;">
-        <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1rem; margin-bottom:8px;">
-          <span>📊 성경통독 달성률 (1,189장)</span>
-          <span id="progressPercent" style="color:var(--accent-green);">0%</span>
-        </div>
-        <div style="background:#0f172a; height:10px; border-radius:5px; overflow:hidden;">
-          <div id="progressBarFill" style="background:linear-gradient(90deg, #10b981, #34d399); height:100%; width:0%; transition:width 0.3s;"></div>
-        </div>
-        <div id="progressCount" style="font-size:0.82rem; color:var(--text-muted); margin-top:6px; text-align:right;">0 / 1,189장 완료</div>
-      </div>
-      
-      <!-- 통독표 내 성경권 선택 셀렉터 -->
-      <div style="display:flex; gap:8px; margin-bottom:12px;">
-        <select id="scheduleBookSelect" style="flex:1; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px; font-weight:bold;" onchange="window.renderSchedule(this.value)">
-        </select>
-      </div>
-      <div id="scheduleListContainer"></div>
-    </section>
-
-    <!-- TAB 4: 묵상 일기 -->
-    <section id="tab-journal" class="tab-content">
-      <div style="font-size:1.1rem; font-weight:800; color:var(--accent-green); margin-bottom:12px;">✏️ 통독 묵상 일기장</div>
-      <div style="background:#1e293b; padding:14px; border-radius:12px; margin-bottom:12px;">
-        <div style="color:var(--accent-green); font-weight:bold; margin-bottom:6px;">📖 오늘 받은 은혜의 말씀</div>
-        <textarea id="editorGrace" style="width:100%; min-height:140px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" oninput="window.saveJournal()"></textarea>
-      </div>
-      <div style="background:#1e293b; padding:14px; border-radius:12px;">
-        <div style="color:var(--accent-gold); font-weight:bold; margin-bottom:6px;">💡 깨달은 교훈 및 기도제목</div>
-        <textarea id="editorLesson" style="width:100%; min-height:140px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" oninput="window.saveJournal()"></textarea>
-      </div>
-    </section>
-  </div>
-
-  <!-- 66권 & 장 1터치 이동 모달 -->
-  <div id="bookSelectorModal" class="modal-overlay">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-      <span style="font-weight:800; color:var(--accent-green); font-size:1.1rem;">📖 성경 66권 & 장 선택</span>
-      <button style="background:none; border:none; color:#fff; font-size:1.4rem; cursor:pointer;" onclick="window.closeBookSelector()">✕</button>
-    </div>
-    
-    <div class="book-tabs">
-      <button id="btabOT" class="btab active" onclick="window.switchBookTestament('OT')">구약 (39권)</button>
-      <button id="btabNT" class="btab" onclick="window.switchBookTestament('NT')">신약 (27권)</button>
-    </div>
-
-    <div id="bookGrid" class="book-grid"></div>
-    <div id="chapterGridTitle" style="font-weight:bold; color:var(--accent-green); margin:12px 0 8px 0; display:none;">장 선택</div>
-    <div id="chapterGrid" class="ch-grid" style="display:none;"></div>
-  </div>
-
-  <!-- 구절 액션 툴바 모달 -->
-  <div id="actionModal" class="action-modal">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <span id="actionRefTitle" style="font-weight:bold; color:var(--accent-green);">구절 선택</span>
-      <button style="background:none; border:none; color:var(--text-muted); font-size:1.2rem; cursor:pointer;" onclick="window.closeActionModal()">✕</button>
-    </div>
-    
-    <div style="font-size:0.85rem; font-weight:700; color:var(--text-muted);">🎨 형광펜 색상 칠하기</div>
-    <div class="color-picker">
-      <div class="color-dot" style="background:#fde047;" title="노랑" onclick="window.applyHighlight('hl-yellow')"></div>
-      <div class="color-dot" style="background:#34d399;" title="연두" onclick="window.applyHighlight('hl-green')"></div>
-      <div class="color-dot" style="background:#f472b6;" title="핑크" onclick="window.applyHighlight('hl-pink')"></div>
-      <div class="color-dot" style="background:#60a5fa;" title="하늘" onclick="window.applyHighlight('hl-blue')"></div>
-      <div class="color-dot" style="background:#f59e0b;" title="골드" onclick="window.applyHighlight('hl-gold')"></div>
-      <button style="background:#334155; color:#fff; border:none; padding:4px 10px; border-radius:12px; font-size:0.8rem;" onclick="window.applyHighlight('')">지우기</button>
-    </div>
-
-    <div style="font-size:0.85rem; font-weight:700; color:var(--accent-gold);">✍️ 묵상 메모 기록</div>
-    <textarea id="actionMemoInput" style="min-height:80px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" placeholder="구절에 대한 묵상 메모를 남겨보세요."></textarea>
-
-    <div style="display:flex; gap:8px;">
-      <button style="flex:1; padding:10px; background:var(--accent-green); color:#fff; border:none; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="window.saveActionMemo()">💾 메모 저장</button>
-      <button style="flex:1; padding:10px; background:var(--accent-gold); color:#000; border:none; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="window.copyActionVerse()">📋 구절+메모 복사</button>
-    </div>
-  </div>
-
-  <nav class="nav-bar">
-    <button class="nav-item active" id="btn-tab-reader" onclick="window.switchTab('reader')">
-      <span class="nav-icon">📖</span>
-      <span>성경본문</span>
-    </button>
-    <button class="nav-item" id="btn-tab-notes" onclick="window.switchTab('notes')">
-      <span class="nav-icon">🎨</span>
-      <span>형광펜/노트</span>
-    </button>
-    <button class="nav-item" id="btn-tab-schedule" onclick="window.switchTab('schedule')">
-      <span class="nav-icon">📅</span>
-      <span>통독표</span>
-    </button>
-    <button class="nav-item" id="btn-tab-journal" onclick="window.switchTab('journal')">
-      <span class="nav-icon">✏️</span>
-      <span>묵상일기</span>
-    </button>
-  </nav>
-
   <script>
-  (function() {
+    // 전역 변수 및 100% 함수 즉시 정의 (버튼 동작 원천 보장)
     var STORAGE_KEY = 'tongdok_journal_siwoong';
     
     var otBooks = ["창세기", "출애굽기", "레위기", "민수기", "신명기", "여호수아", "사사기", "룻기", "사무엘상", "사무엘하", "열왕기상", "열왕기하", "역대상", "역대하", "에스라", "느헤미야", "에스더", "욥기", "시편", "잠언", "전도서", "아가", "이사야", "예레미야", "예레미야애가", "에스겔", "다니엘", "호세아", "요엘", "아모스", "오바디야", "요나", "미가", "나훔", "하박국", "스바냐", "학개", "스카리야", "말라기"];
@@ -377,72 +101,30 @@
     var currentTTSIndex = 0;
 
     var aliasMap = {
-      '창세기': ['Genesis', '창세기'],
-      '출애굽기': ['Exodus', '출애굽기'],
-      '레위기': ['Leviticus', '레위기'],
-      '민수기': ['Numbers', '민수기'],
-      '신명기': ['Deuteronomy', '신명기'],
-      '여호수아': ['Joshua', '여호수아'],
-      '사사기': ['Judges', '사사기'],
-      '룻기': ['Ruth', '룻기'],
-      '사무엘상': ['1Samuel', '사무엘상'],
-      '사무엘하': ['2Samuel', '사무엘하'],
-      '열왕기상': ['1Kings', '열왕기상'],
-      '열왕기하': ['2Kings', '열왕기하'],
-      '역대상': ['1Chronicles', '역대상'],
-      '역대하': ['2Chronicles', '역대하'],
-      '에스라': ['Ezra', '에스라'],
-      '느헤미야': ['Nehemiah', '느헤미야', '느해보야'],
-      '에스더': ['Esther', '에스더'],
-      '욥기': ['Job', '욥기'],
-      '시편': ['Psalms', '시편'],
-      '잠언': ['Proverbs', '잠언'],
-      '전도서': ['Ecclesiastes', '전도서'],
-      '아가': ['SongofSolomon', '아가'],
-      '이사야': ['Isaiah', '이사야'],
-      '예레미야': ['Jeremiah', '예레미야'],
-      '예레미야애가': ['Lamentations', '예레미야애가'],
-      '에스겔': ['Ezekiel', '에스겔'],
-      '다니엘': ['Daniel', '다니엘'],
-      '호세아': ['Hosea', '호세아'],
-      '요엘': ['Joel', '요엘'],
-      '아모스': ['Amos', '아모스'],
-      '오바디야': ['Obadiah', '오바디야'],
-      '요나': ['Jonah', '요나'],
-      '미가': ['Micah', '미가'],
-      '나훔': ['Nahum', '나훔'],
-      '하박국': ['Habakkuk', '하박국'],
-      '스바냐': ['Zephaniah', '스바냐'],
-      '학개': ['Haggai', '학개'],
-      '스카리야': ['Zechariah', '스카리야'],
-      '말라기': ['Malachi', '말라기'],
-      '마태복음': ['Matthew', '마태복음'],
-      '마가복음': ['Mark', '마가복음'],
-      '누가복음': ['Luke', '누가복음'],
-      '요한복음': ['John', '요한복음'],
-      '사도행전': ['Acts', '사도행전'],
-      '로마서': ['Romans', '로마서'],
-      '고린도전서': ['1Corinthians', '고린도전서'],
-      '고린도후서': ['2Corinthians', '고린도후서'],
-      '갈라디아서': ['Galatians', '갈라디아서'],
-      '에베소서': ['Ephesians', '에베소서'],
-      '빌립보서': ['Philippians', '빌립보서'],
-      '골로새서': ['Colossians', '골로새서'],
-      '데살로니가전서': ['1Thessalonians', '데살로니가전서'],
-      '데살로니가후서': ['2Thessalonians', '데살로니가후서'],
-      '디모데전서': ['1Timothy', '디모데전서'],
-      '디모데후서': ['2Timothy', '디모데후서'],
-      '디도서': ['Titus', '디도서'],
-      '빌레몬서': ['Philemon', '빌레몬서'],
-      '히브리서': ['Hebrews', '히브리서'],
-      '야고보서': ['James', '야고보서'],
-      '베드로전서': ['1Peter', '베드로전서'],
-      '베드로후서': ['2Peter', '베드로후서'],
-      '요한1서': ['1John', '요한1서'],
-      '요한2서': ['2John', '요한2서'],
-      '요한3서': ['3John', '요한3서'],
-      '유다서': ['Jude', '유다서'],
-      '요한계시록': ['Revelation', '요한계시록']
+      '창세기': ['Genesis', '창세기'], '출애굽기': ['Exodus', '출애굽기'], '레위기': ['Leviticus', '레위기'],
+      '민수기': ['Numbers', '민수기'], '신명기': ['Deuteronomy', '신명기'], '여호수아': ['Joshua', '여호수아'],
+      '사사기': ['Judges', '사사기'], '룻기': ['Ruth', '룻기'], '사무엘상': ['1Samuel', '사무엘상'],
+      '사무엘하': ['2Samuel', '사무엘하'], '열왕기상': ['1Kings', '열왕기상'], '열왕기하': ['2Kings', '열왕기하'],
+      '역대상': ['1Chronicles', '역대상'], '역대하': ['2Chronicles', '역대하'], '에스라': ['Ezra', '에스라'],
+      '느헤미야': ['Nehemiah', '느헤미야', '느해보야'], '에스더': ['Esther', '에스더'], '욥기': ['Job', '욥기'],
+      '시편': ['Psalms', '시편'], '잠언': ['Proverbs', '잠언'], '전도서': ['Ecclesiastes', '전도서'],
+      '아가': ['SongofSolomon', '아가'], '이사야': ['Isaiah', '이사야'], '예레미야': ['Jeremiah', '예레미야'],
+      '예레미야애가': ['Lamentations', '예레미야애가'], '에스겔': ['Ezekiel', '에스겔'], '다니엘': ['Daniel', '다니엘'],
+      '호세아': ['Hosea', '호세아'], '요엘': ['Joel', '요엘'], '아모스': ['Amos', '아모스'],
+      '오바디야': ['Obadiah', '오바디야'], '요나': ['Jonah', '요나'], '미가': ['Micah', '미가'],
+      '나훔': ['Nahum', '나훔'], '하박국': ['Habakkuk', '하박국'], '스바냐': ['Zephaniah', '스바냐'],
+      '학개': ['Haggai', '학개'], '스카리야': ['Zechariah', '스카리야'], '말라기': ['Malachi', '말라기'],
+      '마태복음': ['Matthew', '마태복음'], '마가복음': ['Mark', '마가복음'], '누가복음': ['Luke', '누가복음'],
+      '요한복음': ['John', '요한복음'], '사도행전': ['Acts', '사도행전'], '로마서': ['Romans', '로마서'],
+      '고린도전서': ['1Corinthians', '고린도전서'], '고린도후서': ['2Corinthians', '고린도후서'],
+      '갈라디아서': ['Galatians', '갈라디아서'], '에베소서': ['Ephesians', '에베소서'],
+      '빌립보서': ['Philippians', '빌립보서'], '골로새서': ['Colossians', '골로새서'],
+      '데살로니가전서': ['1Thessalonians', '데살로니가전서'], '데살로니가후서': ['2Thessalonians', '데살로니가후서'],
+      '디모데전서': ['1Timothy', '디모데전서'], '디모데후서': ['2Timothy', '디모데후서'],
+      '디도서': ['Titus', '디도서'], '빌레몬서': ['Philemon', '빌레몬서'], '히브리서': ['Hebrews', '히브리서'],
+      '야고보서': ['James', '야고보서'], '베드로전서': ['1Peter', '베드로전서'], '베드로후서': ['2Peter', '베드로후서'],
+      '요한1서': ['1John', '요한1서'], '요한2서': ['2John', '요한2서'], '요한3서': ['3John', '요한3서'],
+      '유다서': ['Jude', '유다서'], '요한계시록': ['Revelation', '요한계시록']
     };
 
     function hydrateFullDB() {
@@ -491,24 +173,23 @@
       } catch(e) {}
     }
 
-    window.changeFontSize = function(delta) {
+    function changeFontSize(delta) {
       baseFontSize += delta;
       if (baseFontSize < 13) baseFontSize = 13;
       if (baseFontSize > 25) baseFontSize = 25;
       document.documentElement.style.setProperty('--font-size-base', baseFontSize + 'px');
-    };
+    }
 
-    window.setViewMode = function(mode) {
+    function setViewMode(mode) {
       viewMode = mode;
       ['single', 'dual', 'triple'].forEach(function(m) {
         var btn = document.getElementById('btnMode' + m.charAt(0).toUpperCase() + m.slice(1));
         if (btn) btn.classList.toggle('active', m === mode);
       });
       renderPassage();
-    };
+    }
 
-    // 1장씩 이전/다음 장 이동 (◀ ▶)
-    window.prevChapter = function() {
+    function prevChapter() {
       if (currentChapter > 1) {
         currentChapter--;
       } else {
@@ -521,9 +202,9 @@
         }
       }
       renderPassage();
-    };
+    }
 
-    window.nextChapter = function() {
+    function nextChapter() {
       var db = window.BIBLE_FULL_DB ? window.BIBLE_FULL_DB[currentBook] : null;
       var maxCh = db ? Object.keys(db).length : 1;
       if (currentChapter < maxCh) {
@@ -536,16 +217,16 @@
         }
       }
       renderPassage();
-    };
+    }
 
-    window.toggleCurrentChapterComplete = function() {
+    function toggleCurrentChapterComplete() {
       if (!journalData.completedChapters) journalData.completedChapters = {};
       var key = currentBook + '_' + currentChapter;
       journalData.completedChapters[key] = !journalData.completedChapters[key];
       saveData();
       updateCompleteButtonState();
       updateProgress();
-    };
+    }
 
     function updateCompleteButtonState() {
       var btn = document.getElementById('btnToggleComplete');
@@ -558,25 +239,26 @@
       btn.style.background = isComp ? '#059669' : 'var(--accent-green)';
     }
 
-    window.saveJournal = function() {
+    function saveJournal() {
       var eg = document.getElementById('editorGrace');
       var el = document.getElementById('editorLesson');
       if (eg) journalData.grace = eg.value;
       if (el) journalData.lesson = el.value;
       saveData();
-    };
+    }
 
     function renderPassage() {
       hydrateFullDB();
       var container = document.getElementById('bibleTextContainer');
+      var titleEl = document.getElementById('headerChapterTitle');
+      if (titleEl) titleEl.innerText = currentBook + ' ' + currentChapter + '장';
       if (!container) return;
 
-      document.getElementById('headerChapterTitle').innerText = currentBook + ' ' + currentChapter + '장';
       ttsVersesList = [];
 
       var db = window.BIBLE_FULL_DB ? window.BIBLE_FULL_DB[currentBook] : null;
       if (!db) {
-        container.innerHTML = '<div style="padding:20px; color:#94a3b8;">' + currentBook + ' 본문 데이터를 불러올 수 없습니다.</div>';
+        container.innerHTML = '<div style="padding:20px; color:#94a3b8;">' + currentBook + ' 본문 데이터를 불러오는 중...</div>';
         return;
       }
 
@@ -599,7 +281,7 @@
 
         ttsVersesList.push({ id: 'v_' + vNum, text: currentBook + ' ' + currentChapter + '장 ' + vNum + '절. ' + textGAE });
 
-        html += '<div id="v_' + vNum + '" class="verse-card ' + hlClass + '" onclick="window.openActionModal('' + currentBook + '', ' + currentChapter + ', ' + vNum + ')">';
+        html += '<div id="v_' + vNum + '" class="verse-card ' + hlClass + '" onclick="openActionModal('' + currentBook + '', ' + currentChapter + ', ' + vNum + ')">';
         html += '  <div><span class="verse-num">' + vNum + '.</span> ' + textGAE + '</div>';
 
         if (viewMode === 'dual' || viewMode === 'triple') {
@@ -620,43 +302,46 @@
       updateCompleteButtonState();
     }
 
-    // Quick Book & Chapter Selector Modal
     var activeTestament = 'OT';
 
-    window.openBookSelector = function() {
+    function openBookSelector() {
       hydrateFullDB();
-      document.getElementById('bookSelectorModal').classList.add('active');
+      var modal = document.getElementById('bookSelectorModal');
+      if (modal) modal.classList.add('active');
       renderBookGrid();
-    };
+    }
 
-    window.closeBookSelector = function() {
-      document.getElementById('bookSelectorModal').classList.remove('active');
-    };
+    function closeBookSelector() {
+      var modal = document.getElementById('bookSelectorModal');
+      if (modal) modal.classList.remove('active');
+    }
 
-    window.switchBookTestament = function(t) {
+    function switchBookTestament(t) {
       activeTestament = t;
-      document.getElementById('btabOT').classList.toggle('active', t === 'OT');
-      document.getElementById('btabNT').classList.toggle('active', t === 'NT');
+      var otBtn = document.getElementById('btabOT');
+      var ntBtn = document.getElementById('btabNT');
+      if (otBtn) otBtn.classList.toggle('active', t === 'OT');
+      if (ntBtn) ntBtn.classList.toggle('active', t === 'NT');
       renderBookGrid();
-    };
+    }
 
     function renderBookGrid() {
       var grid = document.getElementById('bookGrid');
       var chGrid = document.getElementById('chapterGrid');
       var chTitle = document.getElementById('chapterGridTitle');
-      chGrid.style.display = 'none';
-      chTitle.style.display = 'none';
-      grid.style.display = 'grid';
+      if (chGrid) chGrid.style.display = 'none';
+      if (chTitle) chTitle.style.display = 'none';
+      if (grid) grid.style.display = 'grid';
 
       var books = activeTestament === 'OT' ? otBooks : ntBooks;
       var html = '';
       books.forEach(function(b) {
-        html += '<div class="book-item' + (b === currentBook ? ' selected' : '') + '" onclick="window.selectBookForChapters('' + b + '')">' + b + '</div>';
+        html += '<div class="book-item' + (b === currentBook ? ' selected' : '') + '" onclick="selectBookForChapters('' + b + '')">' + b + '</div>';
       });
-      grid.innerHTML = html;
+      if (grid) grid.innerHTML = html;
     }
 
-    window.selectBookForChapters = function(bName) {
+    function selectBookForChapters(bName) {
       hydrateFullDB();
       var db = window.BIBLE_FULL_DB ? window.BIBLE_FULL_DB[bName] : null;
       if (!db) return;
@@ -666,69 +351,75 @@
       var chGrid = document.getElementById('chapterGrid');
       var chTitle = document.getElementById('chapterGridTitle');
 
-      grid.style.display = 'none';
-      chTitle.style.display = 'block';
-      chTitle.innerText = bName + ' - 장 선택';
-      chGrid.style.display = 'grid';
+      if (grid) grid.style.display = 'none';
+      if (chTitle) { chTitle.style.display = 'block'; chTitle.innerText = bName + ' - 장 선택'; }
+      if (chGrid) chGrid.style.display = 'grid';
 
       var html = '';
       chKeys.forEach(function(c) {
-        html += '<div class="ch-item" onclick="window.jumpToBookChapter('' + bName + '', ' + c + ')">' + c + '장</div>';
+        html += '<div class="ch-item" onclick="jumpToBookChapter('' + bName + '', ' + c + ')">' + c + '장</div>';
       });
-      chGrid.innerHTML = html;
-    };
+      if (chGrid) chGrid.innerHTML = html;
+    }
 
-    window.jumpToBookChapter = function(bName, ch) {
+    function jumpToBookChapter(bName, ch) {
       currentBook = bName;
       currentChapter = parseInt(ch, 10);
-      window.closeBookSelector();
+      closeBookSelector();
       renderPassage();
-    };
+    }
 
     var selectedActionKey = '';
     var selectedActionBook = '';
     var selectedActionCh = 1;
     var selectedActionVNum = 1;
 
-    window.openActionModal = function(bName, ch, vNum) {
+    function openActionModal(bName, ch, vNum) {
       selectedActionBook = bName;
       selectedActionCh = ch;
       selectedActionVNum = vNum;
       selectedActionKey = bName + '_' + ch + '_' + vNum;
 
-      document.getElementById('actionRefTitle').innerText = bName + ' ' + ch + '장 ' + vNum + '절';
-      document.getElementById('actionMemoInput').value = verseMemos[selectedActionKey] || '';
-      document.getElementById('actionModal').classList.add('active');
-    };
+      var tEl = document.getElementById('actionRefTitle');
+      var iEl = document.getElementById('actionMemoInput');
+      var mEl = document.getElementById('actionModal');
 
-    window.closeActionModal = function() {
-      document.getElementById('actionModal').classList.remove('active');
-    };
+      if (tEl) tEl.innerText = bName + ' ' + ch + '장 ' + vNum + '절';
+      if (iEl) iEl.value = verseMemos[selectedActionKey] || '';
+      if (mEl) mEl.classList.add('active');
+    }
 
-    window.applyHighlight = function(cls) {
+    function closeActionModal() {
+      var mEl = document.getElementById('actionModal');
+      if (mEl) mEl.classList.remove('active');
+    }
+
+    function applyHighlight(cls) {
       if (cls) verseHighlights[selectedActionKey] = cls;
       else delete verseHighlights[selectedActionKey];
       saveData();
       renderPassage();
-      window.closeActionModal();
-    };
+      closeActionModal();
+    }
 
-    window.saveActionMemo = function() {
-      var val = document.getElementById('actionMemoInput').value.trim();
+    function saveActionMemo() {
+      var iEl = document.getElementById('actionMemoInput');
+      var val = iEl ? iEl.value.trim() : '';
       if (val) verseMemos[selectedActionKey] = val;
       else delete verseMemos[selectedActionKey];
       saveData();
       renderPassage();
-      window.closeActionModal();
-    };
+      closeActionModal();
+    }
 
-    window.copyActionVerse = function() {
+    function copyActionVerse() {
       hydrateFullDB();
       var db = window.BIBLE_FULL_DB[selectedActionBook];
       var chObj = db ? (db[selectedActionCh] || db[String(selectedActionCh)]) : null;
       var isArr = Array.isArray(chObj);
       var verseText = chObj ? (isArr ? chObj[selectedActionVNum - 1] : chObj[selectedActionVNum]) : '';
-      var memo = document.getElementById('actionMemoInput').value.trim();
+      var iEl = document.getElementById('actionMemoInput');
+      var memo = iEl ? iEl.value.trim() : '';
 
       var fullText = '📖 [' + selectedActionBook + ' ' + selectedActionCh + ':' + selectedActionVNum + ']
 "' + verseText + '"
@@ -742,35 +433,41 @@
         alert('복사되었습니다:
 ' + fullText);
       }
-    };
+    }
 
-    window.toggleTTS = function() {
-      if (isTTSPlaying) window.stopTTS();
-      else window.startTTS();
-    };
+    function toggleTTS() {
+      if (isTTSPlaying) stopTTS();
+      else startTTS();
+    }
 
-    window.startTTS = function() {
+    function startTTS() {
       if (!ttsSynth || ttsVersesList.length === 0) return;
       isTTSPlaying = true;
-      document.getElementById('ttsIcon').innerText = '⏸️';
-      document.getElementById('ttsText').innerText = '중지';
-      document.getElementById('btnTTSPlay').classList.add('playing');
+      var ic = document.getElementById('ttsIcon');
+      var tx = document.getElementById('ttsText');
+      var bt = document.getElementById('btnTTSPlay');
+      if (ic) ic.innerText = '⏸️';
+      if (tx) tx.innerText = '중지';
+      if (bt) bt.classList.add('playing');
       currentTTSIndex = 0;
       speakCurrentVerse();
-    };
+    }
 
-    window.stopTTS = function() {
+    function stopTTS() {
       if (ttsSynth) ttsSynth.cancel();
       isTTSPlaying = false;
-      document.getElementById('ttsIcon').innerText = '▶️';
-      document.getElementById('ttsText').innerText = '음성 낭독';
-      document.getElementById('btnTTSPlay').classList.remove('playing');
+      var ic = document.getElementById('ttsIcon');
+      var tx = document.getElementById('ttsText');
+      var bt = document.getElementById('btnTTSPlay');
+      if (ic) ic.innerText = '▶️';
+      if (tx) tx.innerText = '음성 낭독';
+      if (bt) bt.classList.remove('playing');
       document.querySelectorAll('.verse-card').forEach(function(el) { el.classList.remove('active-tts'); });
-    };
+    }
 
     function speakCurrentVerse() {
       if (!isTTSPlaying || currentTTSIndex >= ttsVersesList.length) {
-        window.stopTTS();
+        stopTTS();
         return;
       }
 
@@ -784,22 +481,23 @@
 
       var utter = new SpeechSynthesisUtterance(item.text);
       utter.lang = 'ko-KR';
-      utter.rate = parseFloat(document.getElementById('ttsSpeed').value) || 1.0;
+      var spEl = document.getElementById('ttsSpeed');
+      utter.rate = spEl ? (parseFloat(spEl.value) || 1.0) : 1.0;
       utter.onend = function() { if (isTTSPlaying) { currentTTSIndex++; speakCurrentVerse(); } };
       ttsSynth.speak(utter);
     }
 
-    window.prevVerseTTS = function() {
+    function prevVerseTTS() {
       if (currentTTSIndex > 0) { if (ttsSynth) ttsSynth.cancel(); currentTTSIndex--; speakCurrentVerse(); }
-    };
-    window.nextVerseTTS = function() {
+    }
+    function nextVerseTTS() {
       if (currentTTSIndex < ttsVersesList.length - 1) { if (ttsSynth) ttsSynth.cancel(); currentTTSIndex++; speakCurrentVerse(); }
-    };
-    window.changeTTSSpeed = function() {
+    }
+    function changeTTSSpeed() {
       if (isTTSPlaying) { ttsSynth.cancel(); speakCurrentVerse(); }
-    };
+    }
 
-    window.switchTab = function(tabName) {
+    function switchTab(tabName) {
       ['reader', 'notes', 'schedule', 'journal'].forEach(function(t) {
         var p = document.getElementById('tab-' + t);
         var b = document.getElementById('btn-tab-' + t);
@@ -809,7 +507,7 @@
       if (tabName === 'notes') renderNotesTab();
       if (tabName === 'schedule') renderSchedule();
       if (tabName === 'journal') renderJournalTab();
-    };
+    }
 
     function updateProgress() {
       var completedCount = 0;
@@ -825,7 +523,7 @@
       if (cntEl) cntEl.innerText = completedCount + ' / 1,189장 완료';
     }
 
-    window.renderSchedule = function(filterBook) {
+    function renderSchedule(filterBook) {
       updateProgress();
       var container = document.getElementById('scheduleListContainer');
       var selectEl = document.getElementById('scheduleBookSelect');
@@ -854,25 +552,25 @@
           var key = bName + '_' + c;
           var isDone = journalData.completedChapters && journalData.completedChapters[key];
           
-          html += '<div class="schedule-card' + (bName === currentBook && c === currentChapter ? ' active' : '') + (isDone ? ' is-done' : '') + '" onclick="window.jumpToBookChapter('' + bName + '', ' + c + ')">';
+          html += '<div class="schedule-card' + (bName === currentBook && c === currentChapter ? ' active' : '') + (isDone ? ' is-done' : '') + '" onclick="jumpToBookChapter('' + bName + '', ' + c + ')">';
           html += '  <div><div style="font-size:0.82rem; color:var(--text-muted);">' + bName + '</div><div style="font-weight:bold; font-size:1rem; margin-top:2px;">' + bName + ' ' + c + '장</div></div>';
-          html += '  <button style="padding:6px 12px; border-radius:8px; border:none; font-weight:bold; font-size:0.85rem; cursor:pointer; background:' + (isDone ? '#059669' : '#334155') + '; color:#fff;" onclick="event.stopPropagation(); window.toggleChapterCompleteDirect('' + bName + '', ' + c + ')">';
+          html += '  <button style="padding:6px 12px; border-radius:8px; border:none; font-weight:bold; font-size:0.85rem; cursor:pointer; background:' + (isDone ? '#059669' : '#334155') + '; color:#fff;" onclick="event.stopPropagation(); toggleChapterCompleteDirect('' + bName + '', ' + c + ')">';
           html += isDone ? '✓ 완료' : '미완료';
           html += '  </button>';
           html += '</div>';
         }
       });
       container.innerHTML = html;
-    };
+    }
 
-    window.toggleChapterCompleteDirect = function(bName, ch) {
+    function toggleChapterCompleteDirect(bName, ch) {
       if (!journalData.completedChapters) journalData.completedChapters = {};
       var key = bName + '_' + ch;
       journalData.completedChapters[key] = !journalData.completedChapters[key];
       saveData();
-      window.renderSchedule();
+      renderSchedule();
       updateCompleteButtonState();
-    };
+    }
 
     function renderNotesTab() {
       hydrateFullDB();
@@ -916,11 +614,211 @@
       if (el) el.value = journalData.lesson || '';
     }
 
-    loadData();
-    hydrateFullDB();
-    renderPassage();
-    updateProgress();
-  })();
+    // window 객체에 100% 바인딩하여 어떤 상황에서도 onclick 호출 동작
+    window.changeFontSize = changeFontSize;
+    window.setViewMode = setViewMode;
+    window.prevChapter = prevChapter;
+    window.nextChapter = nextChapter;
+    window.toggleCurrentChapterComplete = toggleCurrentChapterComplete;
+    window.saveJournal = saveJournal;
+    window.openBookSelector = openBookSelector;
+    window.closeBookSelector = closeBookSelector;
+    window.switchBookTestament = switchBookTestament;
+    window.selectBookForChapters = selectBookForChapters;
+    window.jumpToBookChapter = jumpToBookChapter;
+    window.openActionModal = openActionModal;
+    window.closeActionModal = closeActionModal;
+    window.applyHighlight = applyHighlight;
+    window.saveActionMemo = saveActionMemo;
+    window.copyActionVerse = copyActionVerse;
+    window.toggleTTS = toggleTTS;
+    window.startTTS = startTTS;
+    window.stopTTS = stopTTS;
+    window.prevVerseTTS = prevVerseTTS;
+    window.nextVerseTTS = nextVerseTTS;
+    window.changeTTSSpeed = changeTTSSpeed;
+    window.switchTab = switchTab;
+    window.renderSchedule = renderSchedule;
+    window.toggleChapterCompleteDirect = toggleChapterCompleteDirect;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      loadData();
+      hydrateFullDB();
+      renderPassage();
+      updateProgress();
+    });
+
+    window.onload = function() {
+      loadData();
+      hydrateFullDB();
+      renderPassage();
+      updateProgress();
+    };
   </script>
+</head>
+<body>
+
+  <!-- 상단 헤더 -->
+  <header class="app-header">
+    <div class="logo-title">
+      <img src="app_logo.png" alt="로고" onerror="this.style.display='none'">
+      <span>김시웅권사</span>
+    </div>
+    
+    <!-- 1장씩 이동 롤러 (◀ 출애굽기 1장 ▾ ▶) -->
+    <div class="nav-ch-bar">
+      <button class="ch-btn-arrow" onclick="prevChapter()" title="이전장">◀</button>
+      <button class="ch-title-btn" onclick="openBookSelector()"><span id="headerChapterTitle">출애굽기 1장</span> ▾</button>
+      <button class="ch-btn-arrow" onclick="nextChapter()" title="다음장">▶</button>
+    </div>
+
+    <div class="header-tools">
+      <button class="tool-btn" title="글자 작게" onclick="changeFontSize(-1)">A-</button>
+      <button class="tool-btn" title="글자 크게" onclick="changeFontSize(1)">A+</button>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <!-- TAB 1: 성경 본문 읽기 (1장씩 읽기) -->
+    <section id="tab-reader" class="tab-content active">
+      <div class="subbar">
+        <div style="font-size:0.85rem; font-weight:700; color:var(--accent-green);">📜 번역본 보기 설정</div>
+        <div class="mode-group">
+          <button id="btnModeSingle" class="mode-btn active" onclick="setViewMode('single')">단일</button>
+          <button id="btnModeDual" class="mode-btn" onclick="setViewMode('dual')">2개 대조</button>
+          <button id="btnModeTriple" class="mode-btn" onclick="setViewMode('triple')">3개 대조</button>
+        </div>
+      </div>
+
+      <div class="audio-bar">
+        <button id="btnTTSPlay" class="play-btn" onclick="toggleTTS()">
+          <span id="ttsIcon">▶️</span> <span id="ttsText">음성 낭독</span>
+        </button>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <button class="tool-btn" style="width:auto; padding:0 8px;" onclick="prevVerseTTS()">⏮️</button>
+          <button class="tool-btn" style="width:auto; padding:0 8px;" onclick="nextVerseTTS()">⏭️</button>
+          <select id="ttsSpeed" style="background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:4px 8px; border-radius:6px; font-weight:bold;" onchange="changeTTSSpeed(this.value)">
+            <option value="0.8">0.8x</option>
+            <option value="1.0" selected>1.0x</option>
+            <option value="1.2">1.2x</option>
+            <option value="1.5">1.5x</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="bibleTextContainer"></div>
+      
+      <div style="background:#1e293b; border:2px solid var(--accent-green); border-radius:14px; padding:16px; text-align:center; margin:20px 0 30px 0;">
+        <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom:10px;" id="completeCardSubtext">현재 장 읽기를 완료하셨나요?</div>
+        <button id="btnToggleComplete" style="width:100%; padding:14px; background:var(--accent-green); color:#fff; border:none; border-radius:10px; font-weight:bold; font-size:1.05rem; cursor:pointer;" onclick="toggleCurrentChapterComplete()">
+          ✅ 오늘 장 읽기 완료하기
+        </button>
+      </div>
+    </section>
+
+    <!-- TAB 2: 형광펜 및 메모 모음 -->
+    <section id="tab-notes" class="tab-content">
+      <div style="font-size: 1.1rem; font-weight: 800; color: var(--accent-green); margin-bottom: 12px;">
+        🎨 성경 형광펜 & 묵상 메모 모음
+      </div>
+      <div id="highlightsContainer"></div>
+    </section>
+
+    <!-- TAB 3: 66권 전체 장별 체크리스트 통독표 -->
+    <section id="tab-schedule" class="tab-content">
+      <div style="background:#1e293b; padding:16px; border-radius:14px; border:1px solid var(--border-dark); margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1rem; margin-bottom:8px;">
+          <span>📊 성경통독 달성률 (1,189장)</span>
+          <span id="progressPercent" style="color:var(--accent-green);">0%</span>
+        </div>
+        <div style="background:#0f172a; height:10px; border-radius:5px; overflow:hidden;">
+          <div id="progressBarFill" style="background:linear-gradient(90deg, #10b981, #34d399); height:100%; width:0%; transition:width 0.3s;"></div>
+        </div>
+        <div id="progressCount" style="font-size:0.82rem; color:var(--text-muted); margin-top:6px; text-align:right;">0 / 1,189장 완료</div>
+      </div>
+      
+      <!-- 통독표 내 성경권 선택 셀렉터 -->
+      <div style="display:flex; gap:8px; margin-bottom:12px;">
+        <select id="scheduleBookSelect" style="flex:1; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px; font-weight:bold;" onchange="renderSchedule(this.value)">
+        </select>
+      </div>
+      <div id="scheduleListContainer"></div>
+    </section>
+
+    <!-- TAB 4: 묵상 일기 -->
+    <section id="tab-journal" class="tab-content">
+      <div style="font-size:1.1rem; font-weight:800; color:var(--accent-green); margin-bottom:12px;">✏️ 통독 묵상 일기장</div>
+      <div style="background:#1e293b; padding:14px; border-radius:12px; margin-bottom:12px;">
+        <div style="color:var(--accent-green); font-weight:bold; margin-bottom:6px;">📖 오늘 받은 은혜의 말씀</div>
+        <textarea id="editorGrace" style="width:100%; min-height:140px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" oninput="saveJournal()"></textarea>
+      </div>
+      <div style="background:#1e293b; padding:14px; border-radius:12px;">
+        <div style="color:var(--accent-gold); font-weight:bold; margin-bottom:6px;">💡 깨달은 교훈 및 기도제목</div>
+        <textarea id="editorLesson" style="width:100%; min-height:140px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" oninput="saveJournal()"></textarea>
+      </div>
+    </section>
+  </div>
+
+  <!-- 66권 & 장 1터치 이동 모달 -->
+  <div id="bookSelectorModal" class="modal-overlay">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <span style="font-weight:800; color:var(--accent-green); font-size:1.1rem;">📖 성경 66권 & 장 선택</span>
+      <button style="background:none; border:none; color:#fff; font-size:1.4rem; cursor:pointer;" onclick="closeBookSelector()">✕</button>
+    </div>
+    
+    <div class="book-tabs">
+      <button id="btabOT" class="btab active" onclick="switchBookTestament('OT')">구약 (39권)</button>
+      <button id="btabNT" class="btab" onclick="switchBookTestament('NT')">신약 (27권)</button>
+    </div>
+
+    <div id="bookGrid" class="book-grid"></div>
+    <div id="chapterGridTitle" style="font-weight:bold; color:var(--accent-green); margin:12px 0 8px 0; display:none;">장 선택</div>
+    <div id="chapterGrid" class="ch-grid" style="display:none;"></div>
+  </div>
+
+  <!-- 구절 액션 툴바 모달 -->
+  <div id="actionModal" class="action-modal">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span id="actionRefTitle" style="font-weight:bold; color:var(--accent-green);">구절 선택</span>
+      <button style="background:none; border:none; color:var(--text-muted); font-size:1.2rem; cursor:pointer;" onclick="closeActionModal()">✕</button>
+    </div>
+    
+    <div style="font-size:0.85rem; font-weight:700; color:var(--text-muted);">🎨 형광펜 색상 칠하기</div>
+    <div class="color-picker">
+      <div class="color-dot" style="background:#fde047;" title="노랑" onclick="applyHighlight('hl-yellow')"></div>
+      <div class="color-dot" style="background:#34d399;" title="연두" onclick="applyHighlight('hl-green')"></div>
+      <div class="color-dot" style="background:#f472b6;" title="핑크" onclick="applyHighlight('hl-pink')"></div>
+      <div class="color-dot" style="background:#60a5fa;" title="하늘" onclick="applyHighlight('hl-blue')"></div>
+      <div class="color-dot" style="background:#f59e0b;" title="골드" onclick="applyHighlight('hl-gold')"></div>
+      <button style="background:#334155; color:#fff; border:none; padding:4px 10px; border-radius:12px; font-size:0.8rem;" onclick="applyHighlight('')">지우기</button>
+    </div>
+
+    <div style="font-size:0.85rem; font-weight:700; color:var(--accent-gold);">✍️ 묵상 메모 기록</div>
+    <textarea id="actionMemoInput" style="min-height:80px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" placeholder="구절에 대한 묵상 메모를 남겨보세요."></textarea>
+
+    <div style="display:flex; gap:8px;">
+      <button style="flex:1; padding:10px; background:var(--accent-green); color:#fff; border:none; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="saveActionMemo()">💾 메모 저장</button>
+      <button style="flex:1; padding:10px; background:var(--accent-gold); color:#000; border:none; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="copyActionVerse()">📋 구절+메모 복사</button>
+    </div>
+  </div>
+
+  <nav class="nav-bar">
+    <button class="nav-item active" id="btn-tab-reader" onclick="switchTab('reader')">
+      <span class="nav-icon">📖</span>
+      <span>성경본문</span>
+    </button>
+    <button class="nav-item" id="btn-tab-notes" onclick="switchTab('notes')">
+      <span class="nav-icon">🎨</span>
+      <span>형광펜/노트</span>
+    </button>
+    <button class="nav-item" id="btn-tab-schedule" onclick="switchTab('schedule')">
+      <span class="nav-icon">📅</span>
+      <span>통독표</span>
+    </button>
+    <button class="nav-item" id="btn-tab-journal" onclick="switchTab('journal')">
+      <span class="nav-icon">✏️</span>
+      <span>묵상일기</span>
+    </button>
+  </nav>
 </body>
 </html>
