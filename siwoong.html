@@ -7,77 +7,191 @@
   <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>📖 김시웅권사 성경통독일기장</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@500;600;700&display=swap" rel="stylesheet">
-  <script src="bible_Genesis.js"></script>
-  <script src="bible_Exodus.js"></script>
-  <script src="bible_Leviticus.js"></script>
-  <script src="bible_Numbers.js"></script>
-  <script src="bible_Deuteronomy.js"></script>
-  <script src="bible_Joshua.js"></script>
-  <script src="bible_Judges.js"></script>
-  <script src="bible_Ruth.js"></script>
-  <script src="bible_1Samuel.js"></script>
-  <script src="bible_2Samuel.js"></script>
-  <script src="bible_1Kings.js"></script>
-  <script src="bible_2Kings.js"></script>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-green: #10b981;
+      --accent-gold: #f59e0b;
+      --accent-blue: #3b82f6;
+      --border-color: #334155;
+      --font-size-base: 17px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+    
+    html, body {
+      height: 100%; width: 100%; background-color: var(--bg-color); color: var(--text-primary); display: flex; flex-direction: column; overflow: hidden;
+    }
+    
+    .app-header {
+      height: 56px; padding-top: env(safe-area-inset-top, 0px); background: #1e293b; padding-left: 12px; padding-right: 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-color); flex-shrink: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.3); gap: 6px;
+    }
+    .logo-title { display: flex; align-items: center; gap: 6px; font-weight: 800; color: var(--accent-green); font-size: 1.05rem; white-space: nowrap; }
+    .logo-title img { height: 26px; border-radius: 4px; vertical-align: middle; }
+
+    .nav-ch-bar {
+      display: flex; align-items: center; gap: 4px; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-green); border-radius: 20px; padding: 3px 8px;
+    }
+    .ch-btn-arrow {
+      background: none; border: none; color: #34d399; font-size: 1rem; font-weight: bold; padding: 3px 6px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .ch-btn-arrow:active { transform: scale(0.9); }
+    .ch-title-btn {
+      background: none; border: none; color: #34d399; font-weight: 800; font-size: 0.92rem; cursor: pointer; padding: 2px 4px; white-space: nowrap;
+    }
+
+    .header-tools { display: flex; align-items: center; gap: 4px; }
+    .tool-btn { background: #0f172a; border: 1px solid var(--border-color); color: #fff; width: 32px; height: 32px; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+    .app-container { flex: 1 1 auto; position: relative; overflow: hidden; width: 100%; }
+    
+    .tab-page { position: absolute; inset: 0; width: 100%; height: 100%; display: none; flex-direction: column; padding: 14px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .tab-page.active { display: flex !important; }
+
+    .subbar {
+      display: flex; align-items: center; justify-content: space-between; background: #1e293b; border: 1px solid var(--border-color); border-radius: 12px; padding: 8px 12px; margin-bottom: 12px; flex-shrink: 0; gap: 8px;
+    }
+    .mode-group { display: flex; gap: 4px; background: #0f172a; padding: 3px; border-radius: 8px; }
+    .mode-btn { background: none; border: none; color: var(--text-secondary); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer; }
+    .mode-btn.active { background: var(--accent-green); color: #fff; font-weight: 800; }
+
+    .audio-bar {
+      display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid var(--accent-green); border-radius: 14px; padding: 10px 14px; margin-bottom: 12px; flex-shrink: 0; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.2);
+    }
+    .play-btn { background: var(--accent-green); color: #fff; border: none; padding: 7px 16px; border-radius: 20px; font-weight: 800; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+    .play-btn.playing { background: #ef4444; color: #fff; }
+
+    .verse-card {
+      background: #1e293b; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; border-left: 4px solid var(--accent-green); font-size: var(--font-size-base); line-height: 1.8; word-break: keep-all; position: relative; transition: all 0.2s ease; cursor: pointer; border: 1px solid var(--border-color);
+    }
+    .verse-card:hover { border-color: var(--accent-green); }
+    .verse-card.active-tts { background: #064e3b !important; border-left-color: var(--accent-gold) !important; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
+
+    .hl-yellow { background: rgba(253, 224, 71, 0.22) !important; border-left-color: #fde047 !important; }
+    .hl-green { background: rgba(52, 211, 153, 0.22) !important; border-left-color: #34d399 !important; }
+    .hl-pink { background: rgba(244, 114, 182, 0.22) !important; border-left-color: #f472b6 !important; }
+    .hl-blue { background: rgba(96, 165, 250, 0.22) !important; border-left-color: #60a5fa !important; }
+    .hl-gold { background: rgba(245, 158, 11, 0.22) !important; border-left-color: #f59e0b !important; }
+
+    .verse-num { font-weight: 800; color: #34d399; font-size: 0.95rem; margin-right: 6px; }
+    
+    .parallel-block { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.12); font-size: 0.95em; color: var(--text-secondary); line-height: 1.7; }
+    .badge { font-weight: 700; font-size: 0.78rem; padding: 2px 6px; border-radius: 4px; margin-right: 6px; display: inline-block; }
+    .badge.sb { background: rgba(56, 189, 248, 0.2); color: var(--accent-blue); }
+    .badge.kh { background: rgba(245, 158, 11, 0.2); color: var(--accent-gold); }
+
+    .memo-tag { background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: var(--accent-gold); border-radius: 8px; padding: 8px 12px; margin-top: 10px; font-size: 0.88rem; line-height: 1.5; }
+
+    .complete-card { background: #1e293b; border: 2px solid var(--accent-green); border-radius: 12px; padding: 18px; text-align: center; margin-top: 20px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); }
+    .btn-complete { width: 100%; padding: 16px; font-size: 1.05rem; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+    .journal-box { background: #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border-color); }
+    .journal-box-title { font-size: 1.05rem; font-weight: bold; color: var(--accent-green); margin-bottom: 8px; }
+    textarea { width: 100%; min-height: 140px; background: #0f172a; border: 1px solid var(--border-color); border-radius: 8px; color: #fff; padding: 12px; font-size: 1rem; resize: vertical; outline: none; line-height: 1.6; }
+
+    .progress-box { background: #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 16px; border: 1px solid var(--border-color); }
+    .progress-bar-bg { background: #0f172a; height: 10px; border-radius: 5px; overflow: hidden; margin: 8px 0; }
+    .progress-bar-fill { background: linear-gradient(90deg, #10b981, #34d399); height: 100%; width: 0%; transition: width 0.3s ease; }
+
+    .schedule-card { background: #1e293b; padding: 14px 18px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1px solid var(--border-color); }
+    .schedule-card.active { border-color: var(--accent-green); background: #064e3b; }
+    .schedule-card.is-done { border-left: 4px solid var(--accent-green); }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(8px); display: none; flex-direction: column; z-index: 2500; padding: 16px; }
+    .modal-overlay.active { display: flex !important; }
+    .book-tabs { display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+    .btab { flex: 1; background: #1e293b; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.95rem; cursor: pointer; text-align: center; }
+    .btab.active { background: var(--accent-green); color: #fff; font-weight: 800; }
+    
+    .book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; overflow-y: auto; flex: 1; padding-right: 4px; }
+    .book-item { background: #1e293b; border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 8px; padding: 12px 6px; font-size: 0.88rem; font-weight: 700; text-align: center; cursor: pointer; transition: all 0.2s; }
+    .book-item:hover, .book-item.selected { background: var(--accent-green); color: #fff; border-color: var(--accent-green); }
+
+    .ch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(55px, 1fr)); gap: 8px; overflow-y: auto; flex: 1; padding-right: 4px; }
+    .ch-item { background: #1e293b; border: 1px solid var(--border-color); color: var(--text-primary); border-radius: 8px; padding: 12px 6px; font-size: 0.95rem; font-weight: 700; text-align: center; cursor: pointer; }
+    .ch-item:hover { background: var(--accent-green); color: #fff; }
+
+    .action-modal { position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; border-top: 1px solid var(--accent-green); border-radius: 20px 20px 0 0; padding: 16px; display: none; flex-direction: column; gap: 12px; z-index: 2000; box-shadow: 0 -8px 24px rgba(0,0,0,0.5); }
+    .action-modal.active { display: flex !important; }
+    .color-picker { display: flex; justify-content: space-around; padding: 8px 0; }
+    .color-dot { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
+
+    .mobile-bottom-nav {
+      height: 60px; min-height: 60px; padding-bottom: env(safe-area-inset-bottom, 0px); background: #1e293b; border-top: 1px solid var(--border-color); display: flex; width: 100%; flex-shrink: 0; z-index: 1000;
+    }
+    .nav-tab-item { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-secondary); font-size: 0.85rem; font-weight: bold; cursor: pointer; border: none; background: none; }
+    .nav-tab-item.active { color: var(--accent-green); background: #334155; }
+    .nav-tab-icon { font-size: 1.25rem; margin-bottom: 2px; }
+  </style>
   <script src="bible_1Chronicles.js"></script>
+  <script src="bible_1Corinthians.js"></script>
+  <script src="bible_1John.js"></script>
+  <script src="bible_1Kings.js"></script>
+  <script src="bible_1Peter.js"></script>
+  <script src="bible_1Samuel.js"></script>
+  <script src="bible_1Thessalonians.js"></script>
+  <script src="bible_1Timothy.js"></script>
   <script src="bible_2Chronicles.js"></script>
-  <script src="bible_Ezra.js"></script>
-  <script src="bible_Nehemiah.js"></script>
-  <script src="bible_Esther.js"></script>
-  <script src="bible_Job.js"></script>
-  <script src="bible_Psalms.js"></script>
-  <script src="bible_Proverbs.js"></script>
-  <script src="bible_Ecclesiastes.js"></script>
-  <script src="bible_SongofSolomon.js"></script>
-  <script src="bible_Isaiah.js"></script>
-  <script src="bible_Jeremiah.js"></script>
-  <script src="bible_Lamentations.js"></script>
-  <script src="bible_Ezekiel.js"></script>
-  <script src="bible_Daniel.js"></script>
-  <script src="bible_Hosea.js"></script>
-  <script src="bible_Joel.js"></script>
+  <script src="bible_2Corinthians.js"></script>
+  <script src="bible_2John.js"></script>
+  <script src="bible_2Kings.js"></script>
+  <script src="bible_2Peter.js"></script>
+  <script src="bible_2Samuel.js"></script>
+  <script src="bible_2Thessalonians.js"></script>
+  <script src="bible_2Timothy.js"></script>
+  <script src="bible_3John.js"></script>
+  <script src="bible_Acts.js"></script>
   <script src="bible_Amos.js"></script>
-  <script src="bible_Obadiah.js"></script>
+  <script src="bible_Colossians.js"></script>
+  <script src="bible_Daniel.js"></script>
+  <script src="bible_Deuteronomy.js"></script>
+  <script src="bible_Ecclesiastes.js"></script>
+  <script src="bible_Ephesians.js"></script>
+  <script src="bible_Esther.js"></script>
+  <script src="bible_Exodus.js"></script>
+  <script src="bible_Ezekiel.js"></script>
+  <script src="bible_Ezra.js"></script>
+  <script src="bible_Galatians.js"></script>
+  <script src="bible_Genesis.js"></script>
+  <script src="bible_Habakkuk.js"></script>
+  <script src="bible_Haggai.js"></script>
+  <script src="bible_Hebrews.js"></script>
+  <script src="bible_Hosea.js"></script>
+  <script src="bible_Isaiah.js"></script>
+  <script src="bible_James.js"></script>
+  <script src="bible_Jeremiah.js"></script>
+  <script src="bible_Job.js"></script>
+  <script src="bible_Joel.js"></script>
+  <script src="bible_John.js"></script>
   <script src="bible_Jonah.js"></script>
+  <script src="bible_Joshua.js"></script>
+  <script src="bible_Jude.js"></script>
+  <script src="bible_Judges.js"></script>
+  <script src="bible_Lamentations.js"></script>
+  <script src="bible_Leviticus.js"></script>
+  <script src="bible_Luke.js"></script>
+  <script src="bible_Malachi.js"></script>
+  <script src="bible_Mark.js"></script>
+  <script src="bible_Matthew.js"></script>
   <script src="bible_Micah.js"></script>
   <script src="bible_Nahum.js"></script>
-  <script src="bible_Habakkuk.js"></script>
-  <script src="bible_Zephaniah.js"></script>
-  <script src="bible_Haggai.js"></script>
-  <script src="bible_Zechariah.js"></script>
-  <script src="bible_Malachi.js"></script>
-  <script src="bible_Matthew.js"></script>
-  <script src="bible_Mark.js"></script>
-  <script src="bible_Luke.js"></script>
-  <script src="bible_John.js"></script>
-  <script src="bible_Acts.js"></script>
-  <script src="bible_Romans.js"></script>
-  <script src="bible_1Corinthians.js"></script>
-  <script src="bible_2Corinthians.js"></script>
-  <script src="bible_Galatians.js"></script>
-  <script src="bible_Ephesians.js"></script>
-  <script src="bible_Philippians.js"></script>
-  <script src="bible_Colossians.js"></script>
-  <script src="bible_1Thessalonians.js"></script>
-  <script src="bible_2Thessalonians.js"></script>
-  <script src="bible_1Timothy.js"></script>
-  <script src="bible_2Timothy.js"></script>
-  <script src="bible_Titus.js"></script>
+  <script src="bible_Nehemiah.js"></script>
+  <script src="bible_Numbers.js"></script>
+  <script src="bible_Obadiah.js"></script>
   <script src="bible_Philemon.js"></script>
-  <script src="bible_Hebrews.js"></script>
-  <script src="bible_James.js"></script>
-  <script src="bible_1Peter.js"></script>
-  <script src="bible_2Peter.js"></script>
-  <script src="bible_1John.js"></script>
-  <script src="bible_2John.js"></script>
-  <script src="bible_3John.js"></script>
-  <script src="bible_Jude.js"></script>
+  <script src="bible_Philippians.js"></script>
+  <script src="bible_Proverbs.js"></script>
+  <script src="bible_Psalms.js"></script>
   <script src="bible_Revelation.js"></script>
+  <script src="bible_Romans.js"></script>
+  <script src="bible_Ruth.js"></script>
+  <script src="bible_SongofSolomon.js"></script>
+  <script src="bible_Titus.js"></script>
+  <script src="bible_Zechariah.js"></script>
+  <script src="bible_Zephaniah.js"></script>
   <script>
-    // 전역 변수 및 100% 함수 즉시 정의 (버튼 동작 원천 보장)
     var STORAGE_KEY = 'tongdok_journal_siwoong';
     
     var otBooks = ["창세기", "출애굽기", "레위기", "민수기", "신명기", "여호수아", "사사기", "룻기", "사무엘상", "사무엘하", "열왕기상", "열왕기하", "역대상", "역대하", "에스라", "느헤미야", "에스더", "욥기", "시편", "잠언", "전도서", "아가", "이사야", "예레미야", "예레미야애가", "에스겔", "다니엘", "호세아", "요엘", "아모스", "오바디야", "요나", "미가", "나훔", "하박국", "스바냐", "학개", "스카리야", "말라기"];
@@ -94,7 +208,6 @@
     var verseMemos = {};
     var verseHighlights = {};
 
-    // TTS
     var ttsSynth = window.speechSynthesis;
     var isTTSPlaying = false;
     var ttsVersesList = [];
@@ -235,8 +348,8 @@
       var key = currentBook + '_' + currentChapter;
       var isComp = journalData.completedChapters && journalData.completedChapters[key];
       if (sub) sub.innerText = currentBook + ' ' + currentChapter + '장 읽기를 완료하셨나요?';
-      btn.innerText = isComp ? '🎉 ' + currentBook + ' ' + currentChapter + '장 읽기 완료됨 (클릭하여 취소)' : '✅ ' + currentBook + ' ' + currentChapter + '장 읽기 완료하기';
-      btn.style.background = isComp ? '#059669' : 'var(--accent-green)';
+      btn.innerText = isComp ? '🎉 ' + currentBook + ' ' + currentChapter + '장 읽기 완료됨 (클릭하여 취소)' : '✅ 오늘 장 읽기 완료하기';
+      btn.className = 'btn-complete ' + (isComp ? 'completed' : 'not-completed');
     }
 
     function saveJournal() {
@@ -499,8 +612,8 @@
 
     function switchTab(tabName) {
       ['reader', 'notes', 'schedule', 'journal'].forEach(function(t) {
-        var p = document.getElementById('tab-' + t);
-        var b = document.getElementById('btn-tab-' + t);
+        var p = document.getElementById('page-' + t);
+        var b = document.getElementById('nav-' + t);
         if (p) p.classList.toggle('active', t === tabName);
         if (b) b.classList.toggle('active', t === tabName);
       });
@@ -553,7 +666,7 @@
           var isDone = journalData.completedChapters && journalData.completedChapters[key];
           
           html += '<div class="schedule-card' + (bName === currentBook && c === currentChapter ? ' active' : '') + (isDone ? ' is-done' : '') + '" onclick="jumpToBookChapter('' + bName + '', ' + c + ')">';
-          html += '  <div><div style="font-size:0.82rem; color:var(--text-muted);">' + bName + '</div><div style="font-weight:bold; font-size:1rem; margin-top:2px;">' + bName + ' ' + c + '장</div></div>';
+          html += '  <div><div style="font-size:0.82rem; color:var(--text-secondary);">' + bName + '</div><div style="font-weight:bold; font-size:1rem; margin-top:2px;">' + bName + ' ' + c + '장</div></div>';
           html += '  <button style="padding:6px 12px; border-radius:8px; border:none; font-weight:bold; font-size:0.85rem; cursor:pointer; background:' + (isDone ? '#059669' : '#334155') + '; color:#fff;" onclick="event.stopPropagation(); toggleChapterCompleteDirect('' + bName + '', ' + c + ')">';
           html += isDone ? '✓ 완료' : '미완료';
           html += '  </button>';
@@ -614,7 +727,6 @@
       if (el) el.value = journalData.lesson || '';
     }
 
-    // window 객체에 100% 바인딩하여 어떤 상황에서도 onclick 호출 동작
     window.changeFontSize = changeFontSize;
     window.setViewMode = setViewMode;
     window.prevChapter = prevChapter;
@@ -665,7 +777,6 @@
       <span>김시웅권사</span>
     </div>
     
-    <!-- 1장씩 이동 롤러 (◀ 출애굽기 1장 ▾ ▶) -->
     <div class="nav-ch-bar">
       <button class="ch-btn-arrow" onclick="prevChapter()" title="이전장">◀</button>
       <button class="ch-title-btn" onclick="openBookSelector()"><span id="headerChapterTitle">출애굽기 1장</span> ▾</button>
@@ -678,9 +789,9 @@
     </div>
   </header>
 
-  <div class="app-body">
-    <!-- TAB 1: 성경 본문 읽기 (1장씩 읽기) -->
-    <section id="tab-reader" class="tab-content active">
+  <div class="app-container">
+    <!-- PAGE 1: 성경 본문 읽기 -->
+    <main id="page-reader" class="tab-page active">
       <div class="subbar">
         <div style="font-size:0.85rem; font-weight:700; color:var(--accent-green);">📜 번역본 보기 설정</div>
         <div class="mode-group">
@@ -697,7 +808,7 @@
         <div style="display:flex; align-items:center; gap:6px;">
           <button class="tool-btn" style="width:auto; padding:0 8px;" onclick="prevVerseTTS()">⏮️</button>
           <button class="tool-btn" style="width:auto; padding:0 8px;" onclick="nextVerseTTS()">⏭️</button>
-          <select id="ttsSpeed" style="background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:4px 8px; border-radius:6px; font-weight:bold;" onchange="changeTTSSpeed(this.value)">
+          <select id="ttsSpeed" style="background:#0f172a; border:1px solid var(--border-color); color:#fff; padding:4px 8px; border-radius:6px; font-weight:bold;" onchange="changeTTSSpeed(this.value)">
             <option value="0.8">0.8x</option>
             <option value="1.0" selected>1.0x</option>
             <option value="1.2">1.2x</option>
@@ -708,55 +819,54 @@
 
       <div id="bibleTextContainer"></div>
       
-      <div style="background:#1e293b; border:2px solid var(--accent-green); border-radius:14px; padding:16px; text-align:center; margin:20px 0 30px 0;">
-        <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom:10px;" id="completeCardSubtext">현재 장 읽기를 완료하셨나요?</div>
-        <button id="btnToggleComplete" style="width:100%; padding:14px; background:var(--accent-green); color:#fff; border:none; border-radius:10px; font-weight:bold; font-size:1.05rem; cursor:pointer;" onclick="toggleCurrentChapterComplete()">
+      <div class="complete-card">
+        <div style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:10px;" id="completeCardSubtext">현재 장 읽기를 완료하셨나요?</div>
+        <button id="btnToggleComplete" class="btn-complete not-completed" onclick="toggleCurrentChapterComplete()">
           ✅ 오늘 장 읽기 완료하기
         </button>
       </div>
-    </section>
+    </main>
 
-    <!-- TAB 2: 형광펜 및 메모 모음 -->
-    <section id="tab-notes" class="tab-content">
+    <!-- PAGE 2: 형광펜 및 메모 모음 -->
+    <main id="page-notes" class="tab-page">
       <div style="font-size: 1.1rem; font-weight: 800; color: var(--accent-green); margin-bottom: 12px;">
         🎨 성경 형광펜 & 묵상 메모 모음
       </div>
       <div id="highlightsContainer"></div>
-    </section>
+    </main>
 
-    <!-- TAB 3: 66권 전체 장별 체크리스트 통독표 -->
-    <section id="tab-schedule" class="tab-content">
-      <div style="background:#1e293b; padding:16px; border-radius:14px; border:1px solid var(--border-dark); margin-bottom:14px;">
+    <!-- PAGE 3: 66권 전체 장별 체크리스트 통독표 -->
+    <main id="page-schedule" class="tab-page">
+      <div class="progress-box">
         <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1rem; margin-bottom:8px;">
           <span>📊 성경통독 달성률 (1,189장)</span>
           <span id="progressPercent" style="color:var(--accent-green);">0%</span>
         </div>
-        <div style="background:#0f172a; height:10px; border-radius:5px; overflow:hidden;">
-          <div id="progressBarFill" style="background:linear-gradient(90deg, #10b981, #34d399); height:100%; width:0%; transition:width 0.3s;"></div>
+        <div class="progress-bar-bg">
+          <div id="progressBarFill" class="progress-bar-fill"></div>
         </div>
-        <div id="progressCount" style="font-size:0.82rem; color:var(--text-muted); margin-top:6px; text-align:right;">0 / 1,189장 완료</div>
+        <div id="progressCount" style="font-size:0.82rem; color:var(--text-secondary); margin-top:6px; text-align:right;">0 / 1,189장 완료</div>
       </div>
       
-      <!-- 통독표 내 성경권 선택 셀렉터 -->
       <div style="display:flex; gap:8px; margin-bottom:12px;">
-        <select id="scheduleBookSelect" style="flex:1; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px; font-weight:bold;" onchange="renderSchedule(this.value)">
+        <select id="scheduleBookSelect" style="flex:1; background:#0f172a; border:1px solid var(--border-color); color:#fff; padding:10px; border-radius:8px; font-weight:bold;" onchange="renderSchedule(this.value)">
         </select>
       </div>
       <div id="scheduleListContainer"></div>
-    </section>
+    </main>
 
-    <!-- TAB 4: 묵상 일기 -->
-    <section id="tab-journal" class="tab-content">
+    <!-- PAGE 4: 묵상 일기 -->
+    <main id="page-journal" class="tab-page">
       <div style="font-size:1.1rem; font-weight:800; color:var(--accent-green); margin-bottom:12px;">✏️ 통독 묵상 일기장</div>
-      <div style="background:#1e293b; padding:14px; border-radius:12px; margin-bottom:12px;">
-        <div style="color:var(--accent-green); font-weight:bold; margin-bottom:6px;">📖 오늘 받은 은혜의 말씀</div>
-        <textarea id="editorGrace" style="width:100%; min-height:140px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" oninput="saveJournal()"></textarea>
+      <div class="journal-box">
+        <div class="journal-box-title">📖 오늘 받은 은혜의 말씀</div>
+        <textarea id="editorGrace" oninput="saveJournal()"></textarea>
       </div>
-      <div style="background:#1e293b; padding:14px; border-radius:12px;">
-        <div style="color:var(--accent-gold); font-weight:bold; margin-bottom:6px;">💡 깨달은 교훈 및 기도제목</div>
-        <textarea id="editorLesson" style="width:100%; min-height:140px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" oninput="saveJournal()"></textarea>
+      <div class="journal-box">
+        <div style="font-size:1.05rem; font-weight:bold; color:var(--accent-gold); margin-bottom:8px;">💡 깨달은 교훈 및 기도제목</div>
+        <textarea id="editorLesson" oninput="saveJournal()"></textarea>
       </div>
-    </section>
+    </main>
   </div>
 
   <!-- 66권 & 장 1터치 이동 모달 -->
@@ -780,10 +890,10 @@
   <div id="actionModal" class="action-modal">
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <span id="actionRefTitle" style="font-weight:bold; color:var(--accent-green);">구절 선택</span>
-      <button style="background:none; border:none; color:var(--text-muted); font-size:1.2rem; cursor:pointer;" onclick="closeActionModal()">✕</button>
+      <button style="background:none; border:none; color:var(--text-secondary); font-size:1.2rem; cursor:pointer;" onclick="closeActionModal()">✕</button>
     </div>
     
-    <div style="font-size:0.85rem; font-weight:700; color:var(--text-muted);">🎨 형광펜 색상 칠하기</div>
+    <div style="font-size:0.85rem; font-weight:700; color:var(--text-secondary);">🎨 형광펜 색상 칠하기</div>
     <div class="color-picker">
       <div class="color-dot" style="background:#fde047;" title="노랑" onclick="applyHighlight('hl-yellow')"></div>
       <div class="color-dot" style="background:#34d399;" title="연두" onclick="applyHighlight('hl-green')"></div>
@@ -794,7 +904,7 @@
     </div>
 
     <div style="font-size:0.85rem; font-weight:700; color:var(--accent-gold);">✍️ 묵상 메모 기록</div>
-    <textarea id="actionMemoInput" style="min-height:80px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" placeholder="구절에 대한 묵상 메모를 남겨보세요."></textarea>
+    <textarea id="actionMemoInput" style="min-height:80px; background:#0f172a; border:1px solid var(--border-color); color:#fff; padding:10px; border-radius:8px;" placeholder="구절에 대한 묵상 메모를 남겨보세요."></textarea>
 
     <div style="display:flex; gap:8px;">
       <button style="flex:1; padding:10px; background:var(--accent-green); color:#fff; border:none; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="saveActionMemo()">💾 메모 저장</button>
@@ -802,21 +912,22 @@
     </div>
   </div>
 
-  <nav class="nav-bar">
-    <button class="nav-item active" id="btn-tab-reader" onclick="switchTab('reader')">
-      <span class="nav-icon">📖</span>
+  <!-- 하단 탭 네비게이션 -->
+  <nav class="mobile-bottom-nav">
+    <button class="nav-tab-item active" id="nav-reader" onclick="switchTab('reader')">
+      <span class="nav-tab-icon">📖</span>
       <span>성경본문</span>
     </button>
-    <button class="nav-item" id="btn-tab-notes" onclick="switchTab('notes')">
-      <span class="nav-icon">🎨</span>
+    <button class="nav-tab-item" id="nav-notes" onclick="switchTab('notes')">
+      <span class="nav-tab-icon">🎨</span>
       <span>형광펜/노트</span>
     </button>
-    <button class="nav-item" id="btn-tab-schedule" onclick="switchTab('schedule')">
-      <span class="nav-icon">📅</span>
+    <button class="nav-tab-item" id="nav-schedule" onclick="switchTab('schedule')">
+      <span class="nav-tab-icon">📅</span>
       <span>통독표</span>
     </button>
-    <button class="nav-item" id="btn-tab-journal" onclick="switchTab('journal')">
-      <span class="nav-icon">✏️</span>
+    <button class="nav-tab-item" id="nav-journal" onclick="switchTab('journal')">
+      <span class="nav-tab-icon">✏️</span>
       <span>묵상일기</span>
     </button>
   </nav>
