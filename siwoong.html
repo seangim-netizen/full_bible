@@ -10,240 +10,140 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@500;600;700&display=swap" rel="stylesheet">
-  <script src="bible_Genesis.js"></script>
-  <script src="bible_Exodus.js"></script>
-  <script src="bible_Leviticus.js"></script>
-  <script src="bible_Numbers.js"></script>
-  <script src="bible_Deuteronomy.js"></script>
-  <script src="bible_Joshua.js"></script>
-  <script src="bible_Judges.js"></script>
-  <script src="bible_Ruth.js"></script>
-  <script src="bible_1Samuel.js"></script>
-  <script src="bible_2Samuel.js"></script>
-  <script src="bible_1Kings.js"></script>
-  <script src="bible_2Kings.js"></script>
-  <script src="bible_1Chronicles.js"></script>
-  <script src="bible_2Chronicles.js"></script>
-  <script src="bible_Ezra.js"></script>
-  <script src="bible_Nehemiah.js"></script>
-  <script src="bible_Esther.js"></script>
-  <script src="bible_Job.js"></script>
-  <script src="bible_Psalms.js"></script>
-  <script src="bible_Proverbs.js"></script>
-  <script src="bible_Ecclesiastes.js"></script>
-  <script src="bible_SongofSolomon.js"></script>
-  <script src="bible_Isaiah.js"></script>
-  <script src="bible_Jeremiah.js"></script>
-  <script src="bible_Lamentations.js"></script>
-  <script src="bible_Ezekiel.js"></script>
-  <script src="bible_Daniel.js"></script>
-  <script src="bible_Hosea.js"></script>
-  <script src="bible_Joel.js"></script>
-  <script src="bible_Amos.js"></script>
-  <script src="bible_Obadiah.js"></script>
-  <script src="bible_Jonah.js"></script>
-  <script src="bible_Micah.js"></script>
-  <script src="bible_Nahum.js"></script>
-  <script src="bible_Habakkuk.js"></script>
-  <script src="bible_Zephaniah.js"></script>
-  <script src="bible_Haggai.js"></script>
-  <script src="bible_Zechariah.js"></script>
-  <script src="bible_Malachi.js"></script>
-  <script src="bible_Matthew.js"></script>
-  <script src="bible_Mark.js"></script>
-  <script src="bible_Luke.js"></script>
-  <script src="bible_John.js"></script>
-  <script src="bible_Acts.js"></script>
-  <script src="bible_Romans.js"></script>
-  <script src="bible_1Corinthians.js"></script>
-  <script src="bible_2Corinthians.js"></script>
-  <script src="bible_Galatians.js"></script>
-  <script src="bible_Ephesians.js"></script>
-  <script src="bible_Philippians.js"></script>
-  <script src="bible_Colossians.js"></script>
-  <script src="bible_1Thessalonians.js"></script>
-  <script src="bible_2Thessalonians.js"></script>
-  <script src="bible_1Timothy.js"></script>
-  <script src="bible_2Timothy.js"></script>
-  <script src="bible_Titus.js"></script>
-  <script src="bible_Philemon.js"></script>
-  <script src="bible_Hebrews.js"></script>
-  <script src="bible_James.js"></script>
-  <script src="bible_1Peter.js"></script>
-  <script src="bible_2Peter.js"></script>
-  <script src="bible_1John.js"></script>
-  <script src="bible_2John.js"></script>
-  <script src="bible_3John.js"></script>
-  <script src="bible_Jude.js"></script>
-  <script src="bible_Revelation.js"></script>
   <style>
     :root {
-      --gp-bg: #0f172a;
-      --gp-card: #1e293b;
-      --gp-card-border: #334155;
-      --gp-gold: #f59e0b;
-      --gp-green: #10b981;
-      --gp-blue: #3b82f6;
-      --gp-purple: #8b5cf6;
-      --gp-text-main: #f8fafc;
-      --gp-text-sub: #94a3b8;
+      --bg-dark: #0f172a;
+      --card-dark: #1e293b;
+      --border-dark: #334155;
+      --accent-green: #10b981;
+      --accent-gold: #f59e0b;
+      --accent-blue: #3b82f6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
       --font-size-base: 17px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; -webkit-tap-highlight-color: transparent; }
     
     html, body {
-      height: 100%; width: 100%; background-color: var(--gp-bg); color: var(--gp-text-main); display: flex; flex-direction: column; overflow: hidden;
+      height: 100%; width: 100%; background-color: var(--bg-dark); color: var(--text-main); display: flex; flex-direction: column; overflow: hidden;
     }
 
-    /* 상단 헤더 Bar (로고 옆 "로그인처치" 제거, "김시웅권사"만 표기) */
-    .gp-header {
-      height: 60px; padding-top: env(safe-area-inset-top, 0px); background: #1e293b; padding-left: 14px; padding-right: 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--gp-card-border); flex-shrink: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    .app-header {
+      height: 60px; padding-top: env(safe-area-inset-top, 0px); background: #1e293b; padding-left: 14px; padding-right: 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-dark); flex-shrink: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
-    .gp-logo { display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--gp-green); font-size: 1.05rem; white-space: nowrap; }
-    .gp-logo img { height: 26px; border-radius: 4px; vertical-align: middle; }
+    .logo-title { display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--accent-green); font-size: 1.05rem; white-space: nowrap; }
+    .logo-title img { height: 26px; border-radius: 4px; vertical-align: middle; }
 
-    /* 책/장 이동 셀렉터 버튼 */
-    .gp-selector-btn {
-      background: rgba(16, 185, 129, 0.15); border: 1px solid var(--gp-green); color: #34d399; padding: 6px 14px; border-radius: 20px; font-weight: 800; font-size: 0.92rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s; white-space: nowrap;
+    .header-passage {
+      background: rgba(16, 185, 129, 0.15); border: 1px solid var(--accent-green); color: #34d399; padding: 6px 14px; border-radius: 20px; font-weight: 800; font-size: 0.92rem; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap;
     }
-    .gp-selector-btn:active { transform: scale(0.96); }
 
-    .gp-header-tools { display: flex; align-items: center; gap: 6px; }
-    .gp-tool-icon-btn { background: #0f172a; border: 1px solid var(--gp-card-border); color: #fff; width: 34px; height: 34px; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .header-tools { display: flex; align-items: center; gap: 6px; }
+    .tool-btn { background: #0f172a; border: 1px solid var(--border-dark); color: #fff; width: 34px; height: 34px; border-radius: 8px; font-weight: bold; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
     
-    .app-container { flex: 1 1 auto; position: relative; overflow: hidden; width: 100%; }
+    .app-body { flex: 1 1 auto; position: relative; overflow: hidden; width: 100%; }
     
-    .tab-page { position: absolute; inset: 0; width: 100%; height: 100%; display: none; flex-direction: column; padding: 14px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-    .tab-page.active { display: flex !important; }
+    .tab-content { position: absolute; inset: 0; width: 100%; height: 100%; display: none; flex-direction: column; padding: 14px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .tab-content.active { display: flex !important; }
 
-    /* 다번역본 대조 서브바 */
-    .gp-subbar {
-      display: flex; align-items: center; justify-content: space-between; background: #1e293b; border: 1px solid var(--gp-card-border); border-radius: 12px; padding: 8px 12px; margin-bottom: 12px; flex-shrink: 0; gap: 8px;
+    .subbar {
+      display: flex; align-items: center; justify-content: space-between; background: #1e293b; border: 1px solid var(--border-dark); border-radius: 12px; padding: 8px 12px; margin-bottom: 12px; flex-shrink: 0; gap: 8px;
     }
-    .gp-mode-group { display: flex; gap: 4px; background: #0f172a; padding: 3px; border-radius: 8px; }
-    .gp-mode-btn { background: none; border: none; color: var(--gp-text-sub); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer; }
-    .gp-mode-btn.active { background: var(--gp-green); color: #fff; font-weight: 800; }
+    .mode-group { display: flex; gap: 4px; background: #0f172a; padding: 3px; border-radius: 8px; }
+    .mode-btn { background: none; border: none; color: var(--text-muted); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer; }
+    .mode-btn.active { background: var(--accent-green); color: #fff; font-weight: 800; }
 
-    /* 오디오 플레이어 플로팅 바 */
-    .gp-audio-bar {
-      display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid var(--gp-green); border-radius: 14px; padding: 10px 14px; margin-bottom: 12px; flex-shrink: 0; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.2);
+    .audio-bar {
+      display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid var(--accent-green); border-radius: 14px; padding: 10px 14px; margin-bottom: 12px; flex-shrink: 0; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.2);
     }
-    .audio-play-btn { background: var(--gp-green); color: #fff; border: none; padding: 7px 16px; border-radius: 20px; font-weight: 800; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-    .audio-play-btn.playing { background: #ef4444; color: #fff; }
+    .play-btn { background: var(--accent-green); color: #fff; border: none; padding: 7px 16px; border-radius: 20px; font-weight: 800; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+    .play-btn.playing { background: #ef4444; color: #fff; }
 
-    /* 고급 성경 본문 구절 카드 */
-    .gp-verse-card {
-      background: #1e293b; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; border-left: 4px solid var(--gp-green); font-family: 'Noto Serif KR', serif; font-size: var(--font-size-base); line-height: 1.85; word-break: keep-all; position: relative; transition: all 0.2s ease; cursor: pointer; border: 1px solid var(--gp-card-border);
+    .verse-card {
+      background: #1e293b; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; border-left: 4px solid var(--accent-green); font-family: 'Noto Serif KR', serif; font-size: var(--font-size-base); line-height: 1.85; word-break: keep-all; position: relative; transition: all 0.2s ease; cursor: pointer; border: 1px solid var(--border-dark);
     }
-    .gp-verse-card:hover { border-color: var(--gp-green); }
-    .gp-verse-card.reading-active {
-      background: #064e3b !important; border-left-color: var(--gp-gold) !important; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
-    }
+    .verse-card:hover { border-color: var(--accent-green); }
+    .verse-card.active-tts { background: #064e3b !important; border-left-color: var(--accent-gold) !important; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
 
-    /* 형광펜 색상 정의 */
     .hl-yellow { background: rgba(253, 224, 71, 0.22) !important; border-left-color: #fde047 !important; }
     .hl-green { background: rgba(52, 211, 153, 0.22) !important; border-left-color: #34d399 !important; }
     .hl-pink { background: rgba(244, 114, 182, 0.22) !important; border-left-color: #f472b6 !important; }
     .hl-blue { background: rgba(96, 165, 250, 0.22) !important; border-left-color: #60a5fa !important; }
     .hl-gold { background: rgba(245, 158, 11, 0.22) !important; border-left-color: #f59e0b !important; }
 
-    .gp-verse-num { font-family: 'Pretendard', sans-serif; font-weight: 800; color: #34d399; font-size: 0.95rem; margin-right: 6px; }
+    .verse-num { font-family: 'Pretendard', sans-serif; font-weight: 800; color: #34d399; font-size: 0.95rem; margin-right: 6px; }
     
-    /* 병렬 대조 뷰 레이아웃 */
-    .parallel-version-block { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.12); font-size: 0.95em; color: var(--gp-text-sub); line-height: 1.7; }
-    .ver-badge { font-family: 'Pretendard', sans-serif; font-weight: 700; font-size: 0.78rem; padding: 2px 6px; border-radius: 4px; margin-right: 6px; display: inline-block; }
-    .ver-badge.gae { background: rgba(16, 185, 129, 0.2); color: #34d399; }
-    .ver-badge.sb { background: rgba(56, 189, 248, 0.2); color: var(--gp-blue); }
-    .ver-badge.kh { background: rgba(245, 158, 11, 0.2); color: var(--gp-gold); }
+    .parallel-block { margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.12); font-size: 0.95em; color: var(--text-muted); line-height: 1.7; }
+    .badge { font-family: 'Pretendard', sans-serif; font-weight: 700; font-size: 0.78rem; padding: 2px 6px; border-radius: 4px; margin-right: 6px; display: inline-block; }
+    .badge.sb { background: rgba(56, 189, 248, 0.2); color: var(--accent-blue); }
+    .badge.kh { background: rgba(245, 158, 11, 0.2); color: var(--accent-gold); }
 
-    /* 묵상 메모 배지 */
-    .gp-memo-tag {
-      font-family: 'Pretendard', sans-serif; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: var(--gp-gold); border-radius: 8px; padding: 8px 12px; margin-top: 10px; font-size: 0.88rem; line-height: 1.5; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+    .memo-tag { font-family: 'Pretendard', sans-serif; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: var(--accent-gold); border-radius: 8px; padding: 8px 12px; margin-top: 10px; font-size: 0.88rem; line-height: 1.5; }
+
+    .schedule-card {
+      background: #1e293b; border: 1px solid var(--border-dark); border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s;
     }
+    .schedule-card:hover, .schedule-card.active { border-color: var(--accent-green); background: #334155; }
+    .schedule-card.is-done { border-color: var(--accent-green); background: rgba(16, 185, 129, 0.1); }
 
-    /* 66권 선택 그리드 모달 */
-    .gp-modal-full {
-      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(8px); display: none; flex-direction: column; z-index: 2500; padding: 16px;
+    .check-badge { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; }
+    .check-badge.checked { background: var(--accent-green); color: #fff; }
+    .check-badge.unchecked { background: #0f172a; border: 1px solid var(--border-dark); color: transparent; }
+
+    .action-modal {
+      position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; border-top: 1px solid var(--accent-green); border-radius: 20px 20px 0 0; padding: 16px; display: none; flex-direction: column; gap: 12px; z-index: 2000; box-shadow: 0 -8px 24px rgba(0,0,0,0.5);
     }
-    .gp-modal-full.active { display: flex !important; }
-    .gp-book-tabs { display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid var(--gp-card-border); padding-bottom: 8px; }
-    .gp-btab { flex: 1; background: #1e293b; border: 1px solid var(--gp-card-border); color: var(--gp-text-sub); padding: 10px; border-radius: 8px; font-weight: bold; font-size: 0.95rem; cursor: pointer; text-align: center; }
-    .gp-btab.active { background: var(--gp-green); color: #fff; font-weight: 800; }
-    
-    .gp-book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; overflow-y: auto; flex: 1; padding-right: 4px; }
-    .gp-book-item { background: #1e293b; border: 1px solid var(--gp-card-border); color: var(--gp-text-main); border-radius: 8px; padding: 12px 6px; font-size: 0.88rem; font-weight: 700; text-align: center; cursor: pointer; transition: all 0.2s; }
-    .gp-book-item:hover, .gp-book-item.selected { background: var(--gp-green); color: #fff; border-color: var(--gp-green); }
+    .action-modal.active { display: flex !important; }
+    .color-picker { display: flex; justify-content: space-around; padding: 8px 0; }
+    .color-dot { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
 
-    .gp-ch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(55px, 1fr)); gap: 8px; overflow-y: auto; flex: 1; padding-right: 4px; }
-    .gp-ch-item { background: #1e293b; border: 1px solid var(--gp-card-border); color: var(--gp-text-main); border-radius: 8px; padding: 12px 6px; font-size: 0.95rem; font-weight: 700; text-align: center; cursor: pointer; }
-    .gp-ch-item:hover { background: var(--gp-green); color: #fff; }
-
-    /* 액션 툴바 모달 */
-    .action-modal-box {
-      position: fixed; bottom: 0; left: 0; right: 0; background: #1e293b; border-top: 1px solid var(--gp-green); border-radius: 20px 20px 0 0; padding: 16px; display: none; flex-direction: column; gap: 12px; z-index: 2000; box-shadow: 0 -8px 24px rgba(0,0,0,0.5);
+    .nav-bar {
+      height: 60px; min-height: 60px; padding-bottom: env(safe-area-inset-bottom, 0px); background: #1e293b; border-top: 1px solid var(--border-dark); display: flex; width: 100%; flex-shrink: 0; z-index: 1000;
     }
-    .action-modal-box.active { display: flex !important; }
-    .hl-color-picker { display: flex; justify-content: space-around; padding: 8px 0; }
-    .color-dot { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s; }
-    .color-dot:active { transform: scale(1.2); }
-
-    /* 통독표 카치 */
-    .sched-card {
-      background: #1e293b; border: 1px solid var(--gp-card-border); border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
-    }
-    .sched-card.completed { border-color: var(--gp-green); background: rgba(16, 185, 129, 0.1); }
-
-    .mobile-bottom-nav {
-      height: 60px; min-height: 60px; padding-bottom: env(safe-area-inset-bottom, 0px); background: #1e293b; border-top: 1px solid var(--gp-card-border); display: flex; width: 100%; flex-shrink: 0; z-index: 1000;
-    }
-    .nav-tab-item { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--gp-text-sub); font-size: 0.82rem; font-weight: bold; cursor: pointer; border: none; background: none; }
-    .nav-tab-item.active { color: var(--gp-green); background: #334155; }
-    .nav-tab-icon { font-size: 1.25rem; margin-bottom: 2px; }
+    .nav-item { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-muted); font-size: 0.82rem; font-weight: bold; cursor: pointer; border: none; background: none; }
+    .nav-item.active { color: var(--accent-green); background: #334155; }
+    .nav-icon { font-size: 1.25rem; margin-bottom: 2px; }
   </style>
 </head>
 <body>
 
-  <!-- 상단 헤더 (로고 옆 "로그인처치" 지우고 "김시웅권사"만 작성) -->
-  <header class="gp-header">
-    <div class="gp-logo">
+  <!-- 상단 헤더 -->
+  <header class="app-header">
+    <div class="logo-title">
       <img src="app_logo.png" alt="로고" onerror="this.style.display='none'">
       <span>김시웅권사</span>
     </div>
     
-    <!-- 빠른 성경 이동 셀렉터 -->
-    <button class="gp-selector-btn" onclick="window.openBookSelector()">
-      <span id="headerBookTitle">출애굽기 1장</span> ▾
-    </button>
+    <div id="headerPassage" class="header-passage" onclick="window.switchTab('schedule')">
+      출애굽기 1~3장 ▾
+    </div>
 
-    <div class="gp-header-tools">
-      <button class="gp-tool-icon-btn" title="글자 작게" onclick="window.changeFontSize(-1)">A-</button>
-      <button class="gp-tool-icon-btn" title="글자 크게" onclick="window.changeFontSize(1)">A+</button>
+    <div class="header-tools">
+      <button class="tool-btn" title="글자 작게" onclick="window.changeFontSize(-1)">A-</button>
+      <button class="tool-btn" title="글자 크게" onclick="window.changeFontSize(1)">A+</button>
     </div>
   </header>
 
-  <div class="app-container">
+  <div class="app-body">
     <!-- TAB 1: 성경 본문 읽기 -->
-    <section id="tab-reader" class="tab-page active">
-      
-      <!-- 다번역본 대조 서브바 -->
-      <div class="gp-subbar">
-        <div style="font-size:0.85rem; font-weight:700; color:var(--gp-green);">📜 번역본 보기 설정</div>
-        <div class="gp-mode-group">
-          <button id="modeBtnSingle" class="gp-mode-btn active" onclick="window.setViewMode('single')">단일</button>
-          <button id="modeBtnDual" class="gp-mode-btn" onclick="window.setViewMode('dual')">2개 대조</button>
-          <button id="modeBtnTriple" class="gp-mode-btn" onclick="window.setViewMode('triple')">3개 대조</button>
+    <section id="tab-reader" class="tab-content active">
+      <div class="subbar">
+        <div style="font-size:0.85rem; font-weight:700; color:var(--accent-green);">📜 번역본 보기 설정</div>
+        <div class="mode-group">
+          <button id="btnModeSingle" class="mode-btn active" onclick="window.setViewMode('single')">단일</button>
+          <button id="btnModeDual" class="mode-btn" onclick="window.setViewMode('dual')">2개 대조</button>
+          <button id="btnModeTriple" class="mode-btn" onclick="window.setViewMode('triple')">3개 대조</button>
         </div>
       </div>
 
-      <!-- 플로팅 오디오 플레이어 바 -->
-      <div class="gp-audio-bar">
-        <button id="btnTTSPlay" class="audio-play-btn" onclick="window.toggleTTS()">
+      <div class="audio-bar">
+        <button id="btnTTSPlay" class="play-btn" onclick="window.toggleTTS()">
           <span id="ttsIcon">▶️</span> <span id="ttsText">음성 낭독</span>
         </button>
         <div style="display:flex; align-items:center; gap:6px;">
-          <button class="gp-tool-icon-btn" style="width: auto; padding:0 8px;" onclick="window.prevVerseTTS()">⏮️</button>
-          <button class="gp-tool-icon-btn" style="width: auto; padding:0 8px;" onclick="window.nextVerseTTS()">⏭️</button>
-          <select id="ttsSpeed" style="background:#0f172a; border:1px solid var(--gp-card-border); color:#fff; padding:4px 8px; border-radius:6px; font-weight:bold;" onchange="window.changeTTSSpeed(this.value)">
+          <button class="tool-btn" style="width:auto; padding:0 8px;" onclick="window.prevVerseTTS()">⏮️</button>
+          <button class="tool-btn" style="width:auto; padding:0 8px;" onclick="window.nextVerseTTS()">⏭️</button>
+          <select id="ttsSpeed" style="background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:4px 8px; border-radius:6px; font-weight:bold;" onchange="window.changeTTSSpeed(this.value)">
             <option value="0.8">0.8x</option>
             <option value="1.0" selected>1.0x</option>
             <option value="1.2">1.2x</option>
@@ -252,83 +152,61 @@
         </div>
       </div>
 
-      <!-- 본문 컨테이너 -->
       <div id="bibleTextContainer"></div>
       
-      <div style="background:#1e293b; border:2px solid var(--gp-green); border-radius:14px; padding:16px; text-align:center; margin:20px 0 30px 0;">
-        <div style="font-size:0.9rem; color:var(--gp-text-sub); margin-bottom:10px;">오늘 말씀을 통독하셨나요?</div>
-        <button id="btnToggleComplete" style="width:100%; padding:14px; background:var(--gp-green); color:#fff; border:none; border-radius:10px; font-weight:bold; font-size:1.05rem; cursor:pointer;" onclick="window.toggleComplete()">
+      <div style="background:#1e293b; border:2px solid var(--accent-green); border-radius:14px; padding:16px; text-align:center; margin:20px 0 30px 0;">
+        <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom:10px;">오늘 말씀을 통독하셨나요?</div>
+        <button id="btnToggleComplete" style="width:100%; padding:14px; background:var(--accent-green); color:#fff; border:none; border-radius:10px; font-weight:bold; font-size:1.05rem; cursor:pointer;" onclick="window.toggleDayComplete()">
           ✅ 오늘 말씀 통독 완료하기
         </button>
       </div>
     </section>
 
     <!-- TAB 2: 형광펜 및 메모 모음 -->
-    <section id="tab-notes" class="tab-page">
-      <div style="font-size: 1.1rem; font-weight: 800; color: var(--gp-green); margin-bottom: 12px;">
+    <section id="tab-notes" class="tab-content">
+      <div style="font-size: 1.1rem; font-weight: 800; color: var(--accent-green); margin-bottom: 12px;">
         🎨 성경 형광펜 & 묵상 메모 모음
       </div>
       <div id="highlightsContainer"></div>
     </section>
 
     <!-- TAB 3: 통독표 -->
-    <section id="tab-schedule" class="tab-page">
-      <div style="background:#1e293b; padding:16px; border-radius:14px; border:1px solid var(--gp-card-border); margin-bottom:14px;">
+    <section id="tab-schedule" class="tab-content">
+      <div style="background:#1e293b; padding:16px; border-radius:14px; border:1px solid var(--border-dark); margin-bottom:14px;">
         <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1rem; margin-bottom:8px;">
           <span>📊 성경통독 달성률</span>
-          <span id="progressPercent" style="color:var(--gp-green);">0%</span>
+          <span id="progressPercent" style="color:var(--accent-green);">0%</span>
         </div>
         <div style="background:#0f172a; height:10px; border-radius:5px; overflow:hidden;">
           <div id="progressBarFill" style="background:linear-gradient(90deg, #10b981, #34d399); height:100%; width:0%; transition:width 0.3s;"></div>
         </div>
-        <div id="progressCount" style="font-size:0.82rem; color:var(--gp-text-sub); margin-top:6px; text-align:right;">0 / 126일 완료</div>
+        <div id="progressCount" style="font-size:0.82rem; color:var(--text-muted); margin-top:6px; text-align:right;">0 / 126일 완료</div>
       </div>
       <div id="scheduleListContainer"></div>
     </section>
 
     <!-- TAB 4: 묵상 일기 -->
-    <section id="tab-journal" class="tab-page">
-      <div style="font-size:1.1rem; font-weight:800; color:var(--gp-green); margin-bottom:12px;">✏️ 통독 묵상 일기장</div>
+    <section id="tab-journal" class="tab-content">
+      <div style="font-size:1.1rem; font-weight:800; color:var(--accent-green); margin-bottom:12px;">✏️ 통독 묵상 일기장</div>
       <div style="background:#1e293b; padding:14px; border-radius:12px; margin-bottom:12px;">
-        <div style="color:var(--gp-green); font-weight:bold; margin-bottom:6px;">📖 오늘 받은 은혜의 말씀</div>
-        <textarea id="editorGrace" style="width:100%; min-height:140px; background:#0f172a; border:1px solid var(--gp-card-border); color:#fff; padding:10px; border-radius:8px;" oninput="window.saveJournal()"></textarea>
+        <div style="color:var(--accent-green); font-weight:bold; margin-bottom:6px;">📖 오늘 받은 은혜의 말씀</div>
+        <textarea id="editorGrace" style="width:100%; min-height:140px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" oninput="window.saveJournal()"></textarea>
       </div>
       <div style="background:#1e293b; padding:14px; border-radius:12px;">
-        <div style="color:var(--gp-gold); font-weight:bold; margin-bottom:6px;">💡 깨달은 교훈 및 기도제목</div>
-        <textarea id="editorLesson" style="width:100%; min-height:140px; background:#0f172a; border:1px solid var(--gp-card-border); color:#fff; padding:10px; border-radius:8px;" oninput="window.saveJournal()"></textarea>
+        <div style="color:var(--accent-gold); font-weight:bold; margin-bottom:6px;">💡 깨달은 교훈 및 기도제목</div>
+        <textarea id="editorLesson" style="width:100%; min-height:140px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" oninput="window.saveJournal()"></textarea>
       </div>
     </section>
   </div>
 
-  <!-- 66권 빠른 성경 이동 그리드 모달 -->
-  <div id="bookSelectorModal" class="gp-modal-full">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-      <span style="font-weight:800; color:var(--gp-green); font-size:1.1rem;">📖 성경 66권 선택</span>
-      <button style="background:none; border:none; color:#fff; font-size:1.4rem; cursor:pointer;" onclick="window.closeBookSelector()">✕</button>
-    </div>
-    
-    <div class="gp-book-tabs">
-      <button id="btabOT" class="gp-btab active" onclick="window.switchBookTestament('OT')">구약 (39권)</button>
-      <button id="btabNT" class="gp-btab" onclick="window.switchBookTestament('NT')">신약 (27권)</button>
-    </div>
-
-    <!-- 책 선택 그리드 -->
-    <div id="bookGrid" class="gp-book-grid"></div>
-
-    <!-- 장 선택 그리드 -->
-    <div id="chapterGridTitle" style="font-weight:bold; color:var(--gp-green); margin:12px 0 8px 0; display:none;">장 선택</div>
-    <div id="chapterGrid" class="gp-ch-grid" style="display:none;"></div>
-  </div>
-
-  <!-- 구절 액션 툴바 모달 -->
-  <div id="actionModal" class="action-modal-box">
+  <div id="actionModal" class="action-modal">
     <div style="display:flex; justify-content:space-between; align-items:center;">
-      <span id="actionRefTitle" style="font-weight:bold; color:var(--gp-green);">출애굽기 3장 14절</span>
-      <button style="background:none; border:none; color:var(--gp-text-sub); font-size:1.2rem; cursor:pointer;" onclick="window.closeActionModal()">✕</button>
+      <span id="actionRefTitle" style="font-weight:bold; color:var(--accent-green);">구절 선택</span>
+      <button style="background:none; border:none; color:var(--text-muted); font-size:1.2rem; cursor:pointer;" onclick="window.closeActionModal()">✕</button>
     </div>
     
-    <div style="font-size:0.85rem; font-weight:700; color:var(--gp-text-sub);">🎨 형광펜 색상 칠하기</div>
-    <div class="hl-color-picker">
+    <div style="font-size:0.85rem; font-weight:700; color:var(--text-muted);">🎨 형광펜 색상 칠하기</div>
+    <div class="color-picker">
       <div class="color-dot" style="background:#fde047;" title="노랑" onclick="window.applyHighlight('hl-yellow')"></div>
       <div class="color-dot" style="background:#34d399;" title="연두" onclick="window.applyHighlight('hl-green')"></div>
       <div class="color-dot" style="background:#f472b6;" title="핑크" onclick="window.applyHighlight('hl-pink')"></div>
@@ -337,46 +215,47 @@
       <button style="background:#334155; color:#fff; border:none; padding:4px 10px; border-radius:12px; font-size:0.8rem;" onclick="window.applyHighlight('')">지우기</button>
     </div>
 
-    <div style="font-size:0.85rem; font-weight:700; color:var(--gp-gold);">✍️ 묵상 메모 기록</div>
-    <textarea id="actionMemoInput" style="min-height:80px; background:#0f172a; border:1px solid var(--gp-card-border); color:#fff; padding:10px; border-radius:8px;" placeholder="구절에 대한 묵상 메모를 남겨보세요."></textarea>
+    <div style="font-size:0.85rem; font-weight:700; color:var(--accent-gold);">✍️ 묵상 메모 기록</div>
+    <textarea id="actionMemoInput" style="min-height:80px; background:#0f172a; border:1px solid var(--border-dark); color:#fff; padding:10px; border-radius:8px;" placeholder="구절에 대한 묵상 메모를 남겨보세요."></textarea>
 
     <div style="display:flex; gap:8px;">
-      <button style="flex:1; padding:10px; background:var(--gp-green); color:#fff; border:none; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="window.saveActionMemo()">💾 메모 저장</button>
-      <button style="flex:1; padding:10px; background:var(--gp-gold); color:#000; border:none; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="window.copyActionVerse()">📋 구절+메모 복사</button>
+      <button style="flex:1; padding:10px; background:var(--accent-green); color:#fff; border:none; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="window.saveActionMemo()">💾 메모 저장</button>
+      <button style="flex:1; padding:10px; background:var(--accent-gold); color:#000; border:none; border-radius:8px; font-weight:bold; cursor:pointer;" onclick="window.copyActionVerse()">📋 구절+메모 복사</button>
     </div>
   </div>
 
-  <nav class="mobile-bottom-nav">
-    <button class="nav-tab-item active" id="btn-tab-reader" onclick="window.switchTab('reader')">
-      <span class="nav-tab-icon">📖</span>
+  <nav class="nav-bar">
+    <button class="nav-item active" id="btn-tab-reader" onclick="window.switchTab('reader')">
+      <span class="nav-icon">📖</span>
       <span>성경본문</span>
     </button>
-    <button class="nav-tab-item" id="btn-tab-notes" onclick="window.switchTab('notes')">
-      <span class="nav-tab-icon">🎨</span>
+    <button class="nav-item" id="btn-tab-notes" onclick="window.switchTab('notes')">
+      <span class="nav-icon">🎨</span>
       <span>형광펜/노트</span>
     </button>
-    <button class="nav-tab-item" id="btn-tab-schedule" onclick="window.switchTab('schedule')">
-      <span class="nav-tab-icon">📅</span>
+    <button class="nav-item" id="btn-tab-schedule" onclick="window.switchTab('schedule')">
+      <span class="nav-icon">📅</span>
       <span>통독표</span>
     </button>
-    <button class="nav-tab-item" id="btn-tab-journal" onclick="window.switchTab('journal')">
-      <span class="nav-tab-icon">✏️</span>
+    <button class="nav-item" id="btn-tab-journal" onclick="window.switchTab('journal')">
+      <span class="nav-icon">✏️</span>
       <span>묵상일기</span>
     </button>
   </nav>
 
   <script>
   (function() {
+    var scheduleData = [{"day": 0, "passage": "개요 및 준비", "book": "창세기", "engBook": "Genesis", "startCh": 1, "endCh": 1}, {"day": 1, "passage": "창세기 1~10장", "book": "창세기", "engBook": "Genesis", "startCh": 1, "endCh": 10}, {"day": 2, "passage": "창세기 11~20장", "book": "창세기", "engBook": "Genesis", "startCh": 11, "endCh": 20}, {"day": 3, "passage": "창세기 21~30장", "book": "창세기", "engBook": "Genesis", "startCh": 21, "endCh": 30}, {"day": 4, "passage": "창세기 31~40장", "book": "창세기", "engBook": "Genesis", "startCh": 31, "endCh": 40}, {"day": 5, "passage": "창세기 41~50장", "book": "창세기", "engBook": "Genesis", "startCh": 41, "endCh": 50}, {"day": 6, "passage": "출애굽기 1~10장", "book": "출애굽기", "engBook": "Exodus", "startCh": 1, "endCh": 10}, {"day": 7, "passage": "출애굽기 11~20장", "book": "출애굽기", "engBook": "Exodus", "startCh": 11, "endCh": 20}, {"day": 8, "passage": "출애굽기 21~30장", "book": "출애굽기", "engBook": "Exodus", "startCh": 21, "endCh": 30}, {"day": 9, "passage": "출애굽기 31~40장", "book": "출애굽기", "engBook": "Exodus", "startCh": 31, "endCh": 40}, {"day": 10, "passage": "레위기 1~10장", "book": "레위기", "engBook": "Leviticus", "startCh": 1, "endCh": 10}, {"day": 11, "passage": "레위기 11~20장", "book": "레위기", "engBook": "Leviticus", "startCh": 11, "endCh": 20}, {"day": 12, "passage": "레위기 21~27장", "book": "레위기", "engBook": "Leviticus", "startCh": 21, "endCh": 27}, {"day": 13, "passage": "민수기 1~10장", "book": "민수기", "engBook": "Numbers", "startCh": 1, "endCh": 10}, {"day": 14, "passage": "민수기 11~20장", "book": "민수기", "engBook": "Numbers", "startCh": 11, "endCh": 20}, {"day": 15, "passage": "민수기 21~30장", "book": "민수기", "engBook": "Numbers", "startCh": 21, "endCh": 30}, {"day": 16, "passage": "민수기 31~36장", "book": "민수기", "engBook": "Numbers", "startCh": 31, "endCh": 36}, {"day": 17, "passage": "신명기 1~10장", "book": "신명기", "engBook": "Deuteronomy", "startCh": 1, "endCh": 10}, {"day": 18, "passage": "신명기 11~20장", "book": "신명기", "engBook": "Deuteronomy", "startCh": 11, "endCh": 20}, {"day": 19, "passage": "신명기 21~30장", "book": "신명기", "engBook": "Deuteronomy", "startCh": 21, "endCh": 30}, {"day": 20, "passage": "신명기 31~34장", "book": "신명기", "engBook": "Deuteronomy", "startCh": 31, "endCh": 34}, {"day": 21, "passage": "여호수아 1~10장", "book": "여호수아", "engBook": "Joshua", "startCh": 1, "endCh": 10}, {"day": 22, "passage": "여호수아 11~20장", "book": "여호수아", "engBook": "Joshua", "startCh": 11, "endCh": 20}, {"day": 23, "passage": "여호수아 21~24장", "book": "여호수아", "engBook": "Joshua", "startCh": 21, "endCh": 24}, {"day": 24, "passage": "사사기 1~10장", "book": "사사기", "engBook": "Judges", "startCh": 1, "endCh": 10}, {"day": 25, "passage": "사사기 11~20장", "book": "사사기", "engBook": "Judges", "startCh": 11, "endCh": 20}, {"day": 26, "passage": "사사기 21장", "book": "사사기", "engBook": "Judges", "startCh": 21, "endCh": 21}, {"day": 27, "passage": "룻기 1~4장", "book": "룻기", "engBook": "Ruth", "startCh": 1, "endCh": 4}, {"day": 28, "passage": "사무엘상 1~10장", "book": "사무엘상", "engBook": "1Samuel", "startCh": 1, "endCh": 10}, {"day": 29, "passage": "사무엘상 11~20장", "book": "사무엘상", "engBook": "1Samuel", "startCh": 11, "endCh": 20}, {"day": 30, "passage": "사무엘상 21~30장", "book": "사무엘상", "engBook": "1Samuel", "startCh": 21, "endCh": 30}, {"day": 31, "passage": "사무엘상 31장", "book": "사무엘상", "engBook": "1Samuel", "startCh": 31, "endCh": 31}, {"day": 32, "passage": "사무엘하 1~10장", "book": "사무엘하", "engBook": "2Samuel", "startCh": 1, "endCh": 10}, {"day": 33, "passage": "사무엘하 11~20장", "book": "사무엘하", "engBook": "2Samuel", "startCh": 11, "endCh": 20}, {"day": 34, "passage": "사무엘하 21~24장", "book": "사무엘하", "engBook": "2Samuel", "startCh": 21, "endCh": 24}, {"day": 35, "passage": "열왕기상 1~10장", "book": "열왕기상", "engBook": "1Kings", "startCh": 1, "endCh": 10}, {"day": 36, "passage": "열왕기상 11~20장", "book": "열왕기상", "engBook": "1Kings", "startCh": 11, "endCh": 20}, {"day": 37, "passage": "열왕기상 21~22장", "book": "열왕기상", "engBook": "1Kings", "startCh": 21, "endCh": 22}, {"day": 38, "passage": "열왕기하 1~10장", "book": "열왕기하", "engBook": "2Kings", "startCh": 1, "endCh": 10}, {"day": 39, "passage": "열왕기하 11~20장", "book": "열왕기하", "engBook": "2Kings", "startCh": 11, "endCh": 20}, {"day": 40, "passage": "열왕기하 21~25장", "book": "열왕기하", "engBook": "2Kings", "startCh": 21, "endCh": 25}, {"day": 41, "passage": "역대상 1~10장", "book": "역대상", "engBook": "1Chronicles", "startCh": 1, "endCh": 10}, {"day": 42, "passage": "역대상 11~20장", "book": "역대상", "engBook": "1Chronicles", "startCh": 11, "endCh": 20}, {"day": 43, "passage": "역대상 21~29장", "book": "역대상", "engBook": "1Chronicles", "startCh": 21, "endCh": 29}, {"day": 44, "passage": "역대하 1~10장", "book": "역대하", "engBook": "2Chronicles", "startCh": 1, "endCh": 10}, {"day": 45, "passage": "역대하 11~20장", "book": "역대하", "engBook": "2Chronicles", "startCh": 11, "endCh": 20}, {"day": 46, "passage": "역대하 21~30장", "book": "역대하", "engBook": "2Chronicles", "startCh": 21, "endCh": 30}, {"day": 47, "passage": "역대하 31~36장", "book": "역대하", "engBook": "2Chronicles", "startCh": 31, "endCh": 36}, {"day": 48, "passage": "에스라 1~10장", "book": "에스라", "engBook": "Ezra", "startCh": 1, "endCh": 10}, {"day": 49, "passage": "느해보야 1~10장", "book": "느해보야", "engBook": "Nehemiah", "startCh": 1, "endCh": 10}, {"day": 50, "passage": "느해보야 11~13장", "book": "느해보야", "engBook": "Nehemiah", "startCh": 11, "endCh": 13}, {"day": 51, "passage": "에스더 1~10장", "book": "에스더", "engBook": "Esther", "startCh": 1, "endCh": 10}, {"day": 52, "passage": "욥기 1~10장", "book": "욥기", "engBook": "Job", "startCh": 1, "endCh": 10}, {"day": 53, "passage": "욥기 11~20장", "book": "욥기", "engBook": "Job", "startCh": 11, "endCh": 20}, {"day": 54, "passage": "욥기 21~30장", "book": "욥기", "engBook": "Job", "startCh": 21, "endCh": 30}, {"day": 55, "passage": "욥기 31~40장", "book": "욥기", "engBook": "Job", "startCh": 31, "endCh": 40}, {"day": 56, "passage": "욥기 41~42장", "book": "욥기", "engBook": "Job", "startCh": 41, "endCh": 42}, {"day": 57, "passage": "시편 1~10장", "book": "시편", "engBook": "Psalms", "startCh": 1, "endCh": 10}, {"day": 58, "passage": "시편 11~20장", "book": "시편", "engBook": "Psalms", "startCh": 11, "endCh": 20}, {"day": 59, "passage": "시편 21~30장", "book": "시편", "engBook": "Psalms", "startCh": 21, "endCh": 30}, {"day": 60, "passage": "시편 31~40장", "book": "시편", "engBook": "Psalms", "startCh": 31, "endCh": 40}, {"day": 61, "passage": "시편 41~50장", "book": "시편", "engBook": "Psalms", "startCh": 41, "endCh": 50}, {"day": 62, "passage": "시편 51~60장", "book": "시편", "engBook": "Psalms", "startCh": 51, "endCh": 60}, {"day": 63, "passage": "시편 61~70장", "book": "시편", "engBook": "Psalms", "startCh": 61, "endCh": 70}, {"day": 64, "passage": "시편 71~80장", "book": "시편", "engBook": "Psalms", "startCh": 71, "endCh": 80}, {"day": 65, "passage": "시편 81~90장", "book": "시편", "engBook": "Psalms", "startCh": 81, "endCh": 90}, {"day": 66, "passage": "시편 91~100장", "book": "시편", "engBook": "Psalms", "startCh": 91, "endCh": 100}, {"day": 67, "passage": "시편 101~110장", "book": "시편", "engBook": "Psalms", "startCh": 101, "endCh": 110}, {"day": 68, "passage": "시편 111~120장", "book": "시편", "engBook": "Psalms", "startCh": 111, "endCh": 120}, {"day": 69, "passage": "시편 121~130장", "book": "시편", "engBook": "Psalms", "startCh": 121, "endCh": 130}, {"day": 70, "passage": "시편 131~140장", "book": "시편", "engBook": "Psalms", "startCh": 131, "endCh": 140}, {"day": 71, "passage": "시편 141~150장", "book": "시편", "engBook": "Psalms", "startCh": 141, "endCh": 150}, {"day": 72, "passage": "잠언 1~10장", "book": "잠언", "engBook": "Proverbs", "startCh": 1, "endCh": 10}, {"day": 73, "passage": "잠언 11~20장", "book": "잠언", "engBook": "Proverbs", "startCh": 11, "endCh": 20}, {"day": 74, "passage": "잠언 21~30장", "book": "잠언", "engBook": "Proverbs", "startCh": 21, "endCh": 30}, {"day": 75, "passage": "잠언 31장", "book": "잠언", "engBook": "Proverbs", "startCh": 31, "endCh": 31}, {"day": 76, "passage": "전도서 1~10장", "book": "전도서", "engBook": "Ecclesiastes", "startCh": 1, "endCh": 10}, {"day": 77, "passage": "전도서 11~12장", "book": "전도서", "engBook": "Ecclesiastes", "startCh": 11, "endCh": 12}, {"day": 78, "passage": "아가 1~8장", "book": "아가", "engBook": "SongofSolomon", "startCh": 1, "endCh": 8}, {"day": 79, "passage": "이사야 1~10장", "book": "이사야", "engBook": "Isaiah", "startCh": 1, "endCh": 10}, {"day": 80, "passage": "이사야 11~20장", "book": "이사야", "engBook": "Isaiah", "startCh": 11, "endCh": 20}, {"day": 81, "passage": "이사야 21~30장", "book": "이사야", "engBook": "Isaiah", "startCh": 21, "endCh": 30}, {"day": 82, "passage": "이사야 31~40장", "book": "이사야", "engBook": "Isaiah", "startCh": 31, "endCh": 40}, {"day": 83, "passage": "이사야 41~50장", "book": "이사야", "engBook": "Isaiah", "startCh": 41, "endCh": 50}, {"day": 84, "passage": "이사야 51~60장", "book": "이사야", "engBook": "Isaiah", "startCh": 51, "endCh": 60}, {"day": 85, "passage": "이사야 61~66장", "book": "이사야", "engBook": "Isaiah", "startCh": 61, "endCh": 66}, {"day": 86, "passage": "예레미야 1~10장", "book": "예레미야", "engBook": "Jeremiah", "startCh": 1, "endCh": 10}, {"day": 87, "passage": "예레미야 11~20장", "book": "예레미야", "engBook": "Jeremiah", "startCh": 11, "endCh": 20}, {"day": 88, "passage": "예레미야 21~30장", "book": "예레미야", "engBook": "Jeremiah", "startCh": 21, "endCh": 30}, {"day": 89, "passage": "예레미야 31~40장", "book": "예레미야", "engBook": "Jeremiah", "startCh": 31, "endCh": 40}, {"day": 90, "passage": "예레미야 41~50장", "book": "예레미야", "engBook": "Jeremiah", "startCh": 41, "endCh": 50}, {"day": 91, "passage": "예레미야 51~52장", "book": "예레미야", "engBook": "Jeremiah", "startCh": 51, "endCh": 52}, {"day": 92, "passage": "예레미야애가 1~5장", "book": "예레미야애가", "engBook": "Lamentations", "startCh": 1, "endCh": 5}, {"day": 93, "passage": "에스겔 1~10장", "book": "에스겔", "engBook": "Ezekiel", "startCh": 1, "endCh": 10}, {"day": 94, "passage": "에스겔 11~20장", "book": "에스겔", "engBook": "Ezekiel", "startCh": 11, "endCh": 20}, {"day": 95, "passage": "에스겔 21~30장", "book": "에스겔", "engBook": "Ezekiel", "startCh": 21, "endCh": 30}, {"day": 96, "passage": "에스겔 31~40장", "book": "에스겔", "engBook": "Ezekiel", "startCh": 31, "endCh": 40}, {"day": 97, "passage": "에스겔 41~48장", "book": "에스겔", "engBook": "Ezekiel", "startCh": 41, "endCh": 48}, {"day": 98, "passage": "다니엘 1~10장", "book": "다니엘", "engBook": "Daniel", "startCh": 1, "endCh": 10}, {"day": 99, "passage": "다니엘 11~12장", "book": "다니엘", "engBook": "Daniel", "startCh": 11, "endCh": 12}, {"day": 100, "passage": "호세아 1~10장", "book": "호세아", "engBook": "Hosea", "startCh": 1, "endCh": 10}, {"day": 101, "passage": "호세아 11~14장", "book": "호세아", "engBook": "Hosea", "startCh": 11, "endCh": 14}, {"day": 102, "passage": "요엘 1~3장", "book": "요엘", "engBook": "Joel", "startCh": 1, "endCh": 3}, {"day": 103, "passage": "아모스 1~9장", "book": "아모스", "engBook": "Amos", "startCh": 1, "endCh": 9}, {"day": 104, "passage": "오바디야 1장", "book": "오바디야", "engBook": "Obadiah", "startCh": 1, "endCh": 1}, {"day": 105, "passage": "요나 1~4장", "book": "요나", "engBook": "Jonah", "startCh": 1, "endCh": 4}, {"day": 106, "passage": "미가 1~7장", "book": "미가", "engBook": "Micah", "startCh": 1, "endCh": 7}, {"day": 107, "passage": "나훔 1~3장", "book": "나훔", "engBook": "Nahum", "startCh": 1, "endCh": 3}, {"day": 108, "passage": "하박국 1~3장", "book": "하박국", "engBook": "Habakkuk", "startCh": 1, "endCh": 3}, {"day": 109, "passage": "스바냐 1~3장", "book": "스바냐", "engBook": "Zephaniah", "startCh": 1, "endCh": 3}, {"day": 110, "passage": "학개 1~2장", "book": "학개", "engBook": "Haggai", "startCh": 1, "endCh": 2}, {"day": 111, "passage": "스카리야 1~10장", "book": "스카리야", "engBook": "Zechariah", "startCh": 1, "endCh": 10}, {"day": 112, "passage": "스카리야 11~14장", "book": "스카리야", "engBook": "Zechariah", "startCh": 11, "endCh": 14}, {"day": 113, "passage": "말라기 1~4장", "book": "말라기", "engBook": "Malachi", "startCh": 1, "endCh": 4}, {"day": 114, "passage": "마태복음 1~10장", "book": "마태복음", "engBook": "Matthew", "startCh": 1, "endCh": 10}, {"day": 115, "passage": "마태복음 11~20장", "book": "마태복음", "engBook": "Matthew", "startCh": 11, "endCh": 20}, {"day": 116, "passage": "마태복음 21~28장", "book": "마태복음", "engBook": "Matthew", "startCh": 21, "endCh": 28}, {"day": 117, "passage": "마가복음 1~10장", "book": "마가복음", "engBook": "Mark", "startCh": 1, "endCh": 10}, {"day": 118, "passage": "마가복음 11~16장", "book": "마가복음", "engBook": "Mark", "startCh": 11, "endCh": 16}, {"day": 119, "passage": "누가복음 1~10장", "book": "누가복음", "engBook": "Luke", "startCh": 1, "endCh": 10}, {"day": 120, "passage": "누가복음 11~20장", "book": "누가복음", "engBook": "Luke", "startCh": 11, "endCh": 20}, {"day": 121, "passage": "누가복음 21~24장", "book": "누가복음", "engBook": "Luke", "startCh": 21, "endCh": 24}, {"day": 122, "passage": "요한복음 1~10장", "book": "요한복음", "engBook": "John", "startCh": 1, "endCh": 10}, {"day": 123, "passage": "요한복음 11~20장", "book": "요한복음", "engBook": "John", "startCh": 11, "endCh": 20}, {"day": 124, "passage": "요한복음 21장", "book": "요한복음", "engBook": "John", "startCh": 21, "endCh": 21}, {"day": 125, "passage": "사도행전 1~10장", "book": "사도행전", "engBook": "Acts", "startCh": 1, "endCh": 10}, {"day": 126, "passage": "사도행전 11~20장", "book": "사도행전", "engBook": "Acts", "startCh": 11, "endCh": 20}];
     var STORAGE_KEY = 'tongdok_journal_siwoong';
-    var currentBook = '출애굽기';
-    var currentChapter = 1;
-    var currentDayIndex = 0; // 0-indexed day
-    var viewMode = 'single'; // single, dual, triple
+    
+    var activeDay = 1;
+    var viewMode = 'single';
     var baseFontSize = 17;
 
     var journalData = { completedDays: {}, grace: '', lesson: '' };
     var verseMemos = {};
     var verseHighlights = {};
+    var loadedBookDBs = {};
 
     // TTS
     var ttsSynth = window.speechSynthesis;
@@ -384,22 +263,20 @@
     var ttsVersesList = [];
     var currentTTSIndex = 0;
 
-    var otBooks = ["창세기", "출애굽기", "레위기", "민수기", "신명기", "여호수아", "사사기", "룻기", "사무엘상", "사무엘하", "열왕기상", "열왕기하", "역대상", "역대하", "에스라", "느헤미야", "에스더", "욥기", "시편", "잠언", "전도서", "아가", "이사야", "예레미야", "예레미야애가", "에스겔", "다니엘", "호세아", "요엘", "아모스", "오바디야", "요나", "미가", "나훔", "하박국", "스바냐", "학개", "스카리야", "말라기"];
-    var ntBooks = ["마태복음", "마가복음", "누가복음", "요한복음", "사도행전", "로마서", "고린도전서", "고린도후서", "갈라디아서", "에베소서", "빌립보서", "골로새서", "데살로니가전서", "데살로니가후서", "디모데전서", "디모데후서", "디도서", "빌레몬서", "히브리서", "야고보서", "베드로전서", "베드로후서", "요한1서", "요한2서", "요한3서", "유다서", "요한계시록"];
-    var engBooks = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1Samuel","2Samuel","1Kings","2Kings","1Chronicles","2Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","SongofSolomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1Corinthians","2Corinthians","Galatians","Ephesians","Philippians","Colossians","1Thessalonians","2Thessalonians","1Timothy","2Timothy","Titus","Philemon","Hebrews","James","1Peter","2Peter","1John","2John","3John","Jude","Revelation"];
-
-    // Hydrate DB from script tags or window.BIBLE_FULL_DB
-    function hydrateFullDB() {
-      if (!window.BIBLE_FULL_DB) window.BIBLE_FULL_DB = {};
-      for (var k = 0; k < engBooks.length; k++) {
-        var engB = engBooks[k];
-        var korB = (k < 39 ? otBooks[k] : ntBooks[k - 39]);
-        var loaded = window['bible_' + engB] || window['bible_' + korB] || (window.BIBLE_FULL_DB ? (window.BIBLE_FULL_DB[korB] || window.BIBLE_FULL_DB[engB]) : null);
-        if (loaded) {
-          window.BIBLE_FULL_DB[korB] = loaded;
-          window.BIBLE_FULL_DB[engB] = loaded;
-        }
+    function fetchBookDB(engBookName) {
+      if (loadedBookDBs[engBookName]) {
+        return Promise.resolve(loadedBookDBs[engBookName]);
       }
+      return fetch('db_' + engBookName + '.json')
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          loadedBookDBs[engBookName] = data;
+          return data;
+        })
+        .catch(function(err) {
+          console.error("Error loading split book JSON for " + engBookName + ":", err);
+          return null;
+        });
     }
 
     function loadData() {
@@ -428,8 +305,6 @@
       } catch(e) {}
     }
 
-    // ALL BUTTON FUNCTIONS 100% DEFINED AND BOUND ON WINDOW
-
     window.changeFontSize = function(delta) {
       baseFontSize += delta;
       if (baseFontSize < 13) baseFontSize = 13;
@@ -440,28 +315,28 @@
     window.setViewMode = function(mode) {
       viewMode = mode;
       ['single', 'dual', 'triple'].forEach(function(m) {
-        var btn = document.getElementById('modeBtn' + m.charAt(0).toUpperCase() + m.slice(1));
+        var btn = document.getElementById('btnMode' + m.charAt(0).toUpperCase() + m.slice(1));
         if (btn) btn.classList.toggle('active', m === mode);
       });
-      renderPassage();
+      renderBible();
     };
 
-    window.toggleComplete = function() {
+    window.toggleDayComplete = function(dayNumber) {
+      var targetDay = (typeof dayNumber === 'number') ? dayNumber : activeDay;
       if (!journalData.completedDays) journalData.completedDays = {};
-      var key = 'day_' + currentDayIndex;
+      var key = 'day_' + targetDay;
       journalData.completedDays[key] = !journalData.completedDays[key];
       saveData();
-      updateCompleteButtonState();
-      updateProgress();
-      alert(journalData.completedDays[key] ? '🎉 오늘 말씀 통독이 완료되었습니다!' : '통독 완료가 취소되었습니다.');
+      updateCompleteButtonUI();
+      renderSchedule();
     };
 
-    function updateCompleteButtonState() {
+    function updateCompleteButtonUI() {
       var btn = document.getElementById('btnToggleComplete');
       if (!btn) return;
-      var isComp = journalData.completedDays && journalData.completedDays['day_' + currentDayIndex];
+      var isComp = journalData.completedDays && journalData.completedDays['day_' + activeDay];
       btn.innerText = isComp ? '🎉 오늘 말씀 통독 완료됨 (클릭하여 취소)' : '✅ 오늘 말씀 통독 완료하기';
-      btn.style.background = isComp ? '#059669' : 'var(--gp-green)';
+      btn.style.background = isComp ? '#059669' : 'var(--accent-green)';
     }
 
     window.saveJournal = function() {
@@ -472,139 +347,96 @@
       saveData();
     };
 
-    function getVerseText(bName, ch, vNum) {
-      hydrateFullDB();
-      var db = window.BIBLE_FULL_DB ? window.BIBLE_FULL_DB[bName] : null;
-      if (!db) return '';
-      var chObj = db[ch] || db[String(ch)];
-      if (!chObj) return '';
-      if (Array.isArray(chObj)) {
-        return chObj[vNum - 1] || '';
-      } else {
-        return chObj[vNum] || chObj[String(vNum)] || '';
-      }
-    }
-
-    function renderPassage() {
-      hydrateFullDB();
-      var container = document.getElementById('bibleTextContainer');
-      if (!container) return;
-
-      document.getElementById('headerBookTitle').innerText = currentBook + ' ' + currentChapter + '장';
+    function renderBible() {
+      var currentItem = scheduleData.find(function(item){ return item.day === activeDay; }) || scheduleData[1];
+      document.getElementById('headerPassage').innerText = currentItem.passage + ' ▾';
       ttsVersesList = [];
 
-      var db = window.BIBLE_FULL_DB ? window.BIBLE_FULL_DB[currentBook] : null;
-      if (!db) {
-        container.innerHTML = '<div style="padding:20px; color:#94a3b8;">' + currentBook + ' 본문 데이터를 불러오는 중...</div>';
-        return;
-      }
+      var bName = currentItem.book;
+      var engBName = currentItem.engBook || 'Exodus';
 
-      var chObj = db[currentChapter] || db[String(currentChapter)];
-      if (!chObj) {
-        container.innerHTML = '<div style="padding:20px; color:#94a3b8;">' + currentBook + ' ' + currentChapter + '장 본문이 없습니다.</div>';
-        return;
-      }
+      fetchBookDB(engBName).then(function(db) {
+        var container = document.getElementById('bibleTextContainer');
+        if (!container) return;
 
-      var vKeys = Array.isArray(chObj) ? chObj.map(function(_, i){ return i+1; }) : Object.keys(chObj);
-      var html = '';
-
-      for (var idx = 0; idx < vKeys.length; idx++) {
-        var vNum = vKeys[idx];
-        var textGAE = getVerseText(currentBook, currentChapter, vNum);
-        var memoKey = currentBook + '_' + currentChapter + '_' + vNum;
-        var hlClass = verseHighlights[memoKey] || '';
-        var memoText = verseMemos[memoKey] || '';
-
-        ttsVersesList.push({ id: 'v_' + vNum, text: currentBook + ' ' + currentChapter + '장 ' + vNum + '절. ' + textGAE });
-
-        html += '<div id="v_' + vNum + '" class="gp-verse-card ' + hlClass + '" onclick="window.openActionModal('' + currentBook + '', ' + currentChapter + ', ' + vNum + ')">';
-        html += '  <div><span class="gp-verse-num">' + vNum + '.</span> ' + textGAE + '</div>';
-
-        if (viewMode === 'dual' || viewMode === 'triple') {
-          html += '  <div class="parallel-version-block"><span class="ver-badge sb">새번역</span>[새번역] ' + textGAE + '</div>';
-        }
-        if (viewMode === 'triple') {
-          html += '  <div class="parallel-version-block"><span class="ver-badge kh">개역한글</span>[개역한글] ' + textGAE + '</div>';
+        var bookDB = db ? (db[bName] || db[engBName]) : null;
+        if (!bookDB) {
+          container.innerHTML = '<div style="padding:20px; color:#94a3b8;">' + bName + ' 본문 데이터를 불러오는 중...</div>';
+          return;
         }
 
-        if (memoText) {
-          html += '  <div class="gp-memo-tag"><span>✍️ <strong>묵상:</strong> ' + memoText + '</span></div>';
+        var html = '';
+        for (var c = currentItem.startCh; c <= currentItem.endCh; c++) {
+          var chObj = bookDB[c] || bookDB[String(c)];
+          if (chObj) {
+            html += '<h4 style="color:var(--accent-gold); margin:18px 0 10px 0; font-size:1.1rem; border-bottom:1px solid #334155; padding-bottom:4px;">' + bName + ' ' + c + '장</h4>';
+            var vKeys = Array.isArray(chObj) ? chObj.map(function(_, i){ return i+1; }) : Object.keys(chObj);
+            
+            for (var idx = 0; idx < vKeys.length; idx++) {
+              var vNum = vKeys[idx];
+              var verseText = Array.isArray(chObj) ? chObj[vNum - 1] : chObj[vNum];
+              var memoKey = bName + '_' + c + '_' + vNum;
+              var hlClass = verseHighlights[memoKey] || '';
+              var memoText = verseMemos[memoKey] || '';
+
+              ttsVersesList.push({ id: 'v_' + c + '_' + vNum, text: bName + ' ' + c + '장 ' + vNum + '절. ' + verseText });
+
+              html += '<div id="v_' + c + '_' + vNum + '" class="verse-card ' + hlClass + '" onclick="window.openActionModal('' + bName + '', ' + c + ', ' + vNum + ')">';
+              html += '  <div><span class="verse-num">' + vNum + '.</span> ' + verseText + '</div>';
+
+              if (viewMode === 'dual' || viewMode === 'triple') {
+                html += '  <div class="parallel-block"><span class="badge sb">새번역</span>[새번역] ' + verseText + '</div>';
+              }
+              if (viewMode === 'triple') {
+                html += '  <div class="parallel-block"><span class="badge kh">개역한글</span>[개역한글] ' + verseText + '</div>';
+              }
+
+              if (memoText) {
+                html += '  <div class="memo-tag">✍️ <strong>묵상:</strong> ' + memoText + '</div>';
+              }
+
+              html += '</div>';
+            }
+          }
         }
 
-        html += '</div>';
-      }
-
-      container.innerHTML = html;
-      updateCompleteButtonState();
+        container.innerHTML = html;
+        updateCompleteButtonUI();
+      });
     }
 
-    // Quick Book & Chapter Navigator Modal
-    var activeTestament = 'OT';
-    var selectedBookForCh = '';
+    function renderSchedule() {
+      var container = document.getElementById('scheduleListContainer');
+      if (!container) return;
+      container.innerHTML = '';
 
-    window.openBookSelector = function() {
-      document.getElementById('bookSelectorModal').classList.add('active');
-      renderBookGrid();
-    };
+      var completedCount = 0;
+      scheduleData.forEach(function(item) {
+        if (item.day === 0) return;
+        var isDone = journalData.completedDays && journalData.completedDays['day_' + item.day];
+        if (isDone) completedCount++;
 
-    window.closeBookSelector = function() {
-      document.getElementById('bookSelectorModal').classList.remove('active');
-    };
-
-    window.switchBookTestament = function(t) {
-      activeTestament = t;
-      document.getElementById('btabOT').classList.toggle('active', t === 'OT');
-      document.getElementById('btabNT').classList.toggle('active', t === 'NT');
-      renderBookGrid();
-    };
-
-    function renderBookGrid() {
-      var grid = document.getElementById('bookGrid');
-      var chGrid = document.getElementById('chapterGrid');
-      var chTitle = document.getElementById('chapterGridTitle');
-      chGrid.style.display = 'none';
-      chTitle.style.display = 'none';
-      grid.style.display = 'grid';
-
-      var books = activeTestament === 'OT' ? otBooks : ntBooks;
-      var html = '';
-      books.forEach(function(b) {
-        html += '<div class="gp-book-item' + (b === currentBook ? ' selected' : '') + '" onclick="window.selectBookForChapters('' + b + '')">' + b + '</div>';
+        var card = document.createElement('div');
+        card.className = 'schedule-card' + (item.day === activeDay ? ' active' : '') + (isDone ? ' is-done' : '');
+        card.innerHTML = '<div><div style="font-size:0.82rem; color:var(--text-muted);">Day ' + item.day + '</div><div style="font-weight:bold; font-size:1rem; margin-top:2px;">' + item.passage + '</div></div><div class="check-badge ' + (isDone ? 'checked' : 'unchecked') + '">' + (isDone ? '✓' : '') + '</div>';
+        card.onclick = function() {
+          activeDay = item.day;
+          window.switchTab('reader');
+          renderBible();
+          renderSchedule();
+        };
+        container.appendChild(card);
       });
-      grid.innerHTML = html;
+
+      var pct = Math.round((completedCount / (scheduleData.length - 1)) * 100);
+      var pctEl = document.getElementById('progressPercent');
+      var fillEl = document.getElementById('progressBarFill');
+      var cntEl = document.getElementById('progressCount');
+      if (pctEl) pctEl.innerText = pct + '%';
+      if (fillEl) fillEl.style.width = pct + '%';
+      if (cntEl) cntEl.innerText = completedCount + ' / ' + (scheduleData.length - 1) + '일 완료';
     }
 
-    window.selectBookForChapters = function(bName) {
-      hydrateFullDB();
-      selectedBookForCh = bName;
-      var db = window.BIBLE_FULL_DB ? window.BIBLE_FULL_DB[bName] : null;
-      if (!db) return;
-
-      var chKeys = Object.keys(db);
-      var grid = document.getElementById('bookGrid');
-      var chGrid = document.getElementById('chapterGrid');
-      var chTitle = document.getElementById('chapterGridTitle');
-
-      grid.style.display = 'none';
-      chTitle.style.display = 'block';
-      chTitle.innerText = bName + ' - 장 선택';
-      chGrid.style.display = 'grid';
-
-      var html = '';
-      chKeys.forEach(function(c) {
-        html += '<div class="gp-ch-item" onclick="window.jumpToBookChapter('' + bName + '', ' + c + ')">' + c + '장</div>';
-      });
-      chGrid.innerHTML = html;
-    };
-
-    window.jumpToBookChapter = function(bName, ch) {
-      currentBook = bName;
-      currentChapter = parseInt(ch, 10);
-      window.closeBookSelector();
-      renderPassage();
-    };
-
-    // Action Modal (Highlight, Memo, Copy)
     var selectedActionKey = '';
     var selectedActionBook = '';
     var selectedActionCh = 1;
@@ -626,50 +458,47 @@
     };
 
     window.applyHighlight = function(cls) {
-      if (cls) {
-        verseHighlights[selectedActionKey] = cls;
-      } else {
-        delete verseHighlights[selectedActionKey];
-      }
+      if (cls) verseHighlights[selectedActionKey] = cls;
+      else delete verseHighlights[selectedActionKey];
       saveData();
-      renderPassage();
+      renderBible();
       window.closeActionModal();
     };
 
     window.saveActionMemo = function() {
       var val = document.getElementById('actionMemoInput').value.trim();
-      if (val) {
-        verseMemos[selectedActionKey] = val;
-      } else {
-        delete verseMemos[selectedActionKey];
-      }
+      if (val) verseMemos[selectedActionKey] = val;
+      else delete verseMemos[selectedActionKey];
       saveData();
-      renderPassage();
+      renderBible();
       window.closeActionModal();
     };
 
     window.copyActionVerse = function() {
-      var text = getVerseText(selectedActionBook, selectedActionCh, selectedActionVNum);
-      var memo = document.getElementById('actionMemoInput').value.trim();
-      var ref = selectedActionBook + ' ' + selectedActionCh + ':' + selectedActionVNum;
+      var currentItem = scheduleData.find(function(item){ return item.day === activeDay; }) || scheduleData[1];
+      var engBName = currentItem.engBook || 'Exodus';
+      
+      fetchBookDB(engBName).then(function(db) {
+        var bookDB = db ? (db[selectedActionBook] || db[engBName]) : null;
+        var chObj = bookDB ? (bookDB[selectedActionCh] || bookDB[String(selectedActionCh)]) : null;
+        var verseText = chObj ? (Array.isArray(chObj) ? chObj[selectedActionVNum - 1] : chObj[selectedActionVNum]) : '';
+        var memo = document.getElementById('actionMemoInput').value.trim();
 
-      var fullText = '📖 [' + ref + ' - 개역개정]
-"' + text + '"
+        var fullText = '📖 [' + selectedActionBook + ' ' + selectedActionCh + ':' + selectedActionVNum + ']
+"' + verseText + '"
 ';
-      if (memo) fullText += '
+        if (memo) fullText += '
 ✍️ 묵상: ' + memo;
 
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(fullText).then(function() {
-          alert('📋 구절과 묵상 메모가 클립보드에 복사되었습니다!');
-        });
-      } else {
-        alert('복사되었습니다:
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(fullText).then(function() { alert('📋 구절과 묵상 메모가 복사되었습니다!'); });
+        } else {
+          alert('복사되었습니다:
 ' + fullText);
-      }
+        }
+      });
     };
 
-    // TTS
     window.toggleTTS = function() {
       if (isTTSPlaying) window.stopTTS();
       else window.startTTS();
@@ -691,7 +520,7 @@
       document.getElementById('ttsIcon').innerText = '▶️';
       document.getElementById('ttsText').innerText = '음성 낭독';
       document.getElementById('btnTTSPlay').classList.remove('playing');
-      document.querySelectorAll('.gp-verse-card').forEach(function(el) { el.classList.remove('reading-active'); });
+      document.querySelectorAll('.verse-card').forEach(function(el) { el.classList.remove('active-tts'); });
     };
 
     function speakCurrentVerse() {
@@ -700,11 +529,11 @@
         return;
       }
 
-      document.querySelectorAll('.gp-verse-card').forEach(function(el) { el.classList.remove('reading-active'); });
+      document.querySelectorAll('.verse-card').forEach(function(el) { el.classList.remove('active-tts'); });
       var item = ttsVersesList[currentTTSIndex];
       var el = document.getElementById(item.id);
       if (el) {
-        el.classList.add('reading-active');
+        el.classList.add('active-tts');
         el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
 
@@ -733,54 +562,9 @@
         if (b) b.classList.toggle('active', t === tabName);
       });
       if (tabName === 'notes') renderNotesTab();
-      if (tabName === 'schedule') renderScheduleTab();
+      if (tabName === 'schedule') renderSchedule();
       if (tabName === 'journal') renderJournalTab();
     };
-
-    function updateProgress() {
-      var completedCount = 0;
-      if (journalData.completedDays) {
-        completedCount = Object.values(journalData.completedDays).filter(Boolean).length;
-      }
-      var pct = Math.round((completedCount / 126) * 100);
-      var pctEl = document.getElementById('progressPercent');
-      var fillEl = document.getElementById('progressBarFill');
-      var cntEl = document.getElementById('progressCount');
-      if (pctEl) pctEl.innerText = pct + '%';
-      if (fillEl) fillEl.style.width = pct + '%';
-      if (cntEl) cntEl.innerText = completedCount + ' / 126일 완료';
-    }
-
-    window.toggleDayComplete = function(idx) {
-      if (!journalData.completedDays) journalData.completedDays = {};
-      var key = 'day_' + idx;
-      journalData.completedDays[key] = !journalData.completedDays[key];
-      saveData();
-      renderScheduleTab();
-      updateProgress();
-    };
-
-    function renderScheduleTab() {
-      updateProgress();
-      var container = document.getElementById('scheduleListContainer');
-      if (!container) return;
-
-      var html = '';
-      for (var d = 0; d < 126; d++) {
-        var isComp = journalData.completedDays && journalData.completedDays['day_' + d];
-        var dayNum = d + 1;
-        html += '<div class="sched-card ' + (isComp ? 'completed' : '') + '">';
-        html += '  <div>';
-        html += '    <div style="font-weight:bold; font-size:0.98rem; color:' + (isComp ? '#34d399' : '#fff') + ';">' + dayNum + '일차 통독</div>';
-        html += '    <div style="font-size:0.82rem; color:var(--gp-text-sub);">구약/신약 범위 ' + dayNum + '</div>';
-        html += '  </div>';
-        html += '  <button style="padding:6px 12px; border-radius:8px; border:none; font-weight:bold; font-size:0.85rem; cursor:pointer; background:' + (isComp ? '#059669' : '#334155') + '; color:#fff;" onclick="window.toggleDayComplete(' + d + ')">';
-        html += isComp ? '✓ 완료됨' : '미완료';
-        html += '  </button>';
-        html += '</div>';
-      }
-      container.innerHTML = html;
-    }
 
     function renderNotesTab() {
       var container = document.getElementById('highlightsContainer');
@@ -798,16 +582,15 @@
       allKeys.forEach(function(key) {
         var parts = key.split('_');
         var bName = parts[0];
-        var ch = parts[1];
+        var c = parts[1];
         var vNum = parts[2];
-        var text = getVerseText(bName, ch, vNum);
+        
         var hl = verseHighlights[key] || '';
         var memo = verseMemos[key] || '';
 
-        html += '<div class="gp-verse-card ' + hl + '">';
-        html += '  <div style="font-weight:bold; color:var(--gp-green); margin-bottom:4px;">📖 ' + bName + ' ' + ch + '장 ' + vNum + '절</div>';
-        html += '  <div>"' + text + '"</div>';
-        if (memo) html += '  <div class="gp-memo-tag">✍️ 묵상: ' + memo + '</div>';
+        html += '<div class="verse-card ' + hl + '">';
+        html += '  <div style="font-weight:bold; color:var(--accent-green); margin-bottom:4px;">📖 ' + bName + ' ' + c + '장 ' + vNum + '절</div>';
+        if (memo) html += '  <div class="memo-tag">✍️ 묵상: ' + memo + '</div>';
         html += '</div>';
       });
       container.innerHTML = html;
@@ -821,9 +604,8 @@
     }
 
     loadData();
-    hydrateFullDB();
-    renderPassage();
-    updateProgress();
+    renderBible();
+    renderSchedule();
   })();
   </script>
 </body>
