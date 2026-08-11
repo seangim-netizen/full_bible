@@ -6,7 +6,7 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>📖 로그인처치 최현경 권사님의 성경통독일기장</title>
+  <title>📖 최현경권사 성경통독일기장</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@500;600;700&display=swap" rel="stylesheet">
@@ -95,7 +95,7 @@
       height: 100%; width: 100%; background-color: var(--gp-bg); color: var(--gp-text-main); display: flex; flex-direction: column; overflow: hidden;
     }
 
-    /* 상단 헤더 Bar (로그인처치 브랜드 복원) */
+    /* 상단 헤더 Bar (로고 옆 "로그인처치" 제거, "김시웅권사"만 표기) */
     .gp-header {
       height: 60px; padding-top: env(safe-area-inset-top, 0px); background: #1e293b; padding-left: 14px; padding-right: 14px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--gp-card-border); flex-shrink: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
@@ -187,6 +187,12 @@
     .color-dot { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s; }
     .color-dot:active { transform: scale(1.2); }
 
+    /* 통독표 카치 */
+    .sched-card {
+      background: #1e293b; border: 1px solid var(--gp-card-border); border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .sched-card.completed { border-color: var(--gp-green); background: rgba(16, 185, 129, 0.1); }
+
     .mobile-bottom-nav {
       height: 60px; min-height: 60px; padding-bottom: env(safe-area-inset-bottom, 0px); background: #1e293b; border-top: 1px solid var(--gp-card-border); display: flex; width: 100%; flex-shrink: 0; z-index: 1000;
     }
@@ -197,11 +203,11 @@
 </head>
 <body>
 
-  <!-- 상단 헤더 (로그인처치 브랜드 복원) -->
+  <!-- 상단 헤더 (로고 옆 "로그인처치" 지우고 "김시웅권사"만 작성) -->
   <header class="gp-header">
     <div class="gp-logo">
-      <img src="app_logo.png" alt="로그인처치 로고" onerror="this.style.display='none'">
-      <span>로그인처치 최현경 권사님</span>
+      <img src="app_logo.png" alt="로고" onerror="this.style.display='none'">
+      <span>최현경권사</span>
     </div>
     
     <!-- 빠른 성경 이동 셀렉터 -->
@@ -297,7 +303,7 @@
   <!-- 66권 빠른 성경 이동 그리드 모달 -->
   <div id="bookSelectorModal" class="gp-modal-full">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-      <span style="font-weight:800; color:var(--gp-green); font-size:1.1rem;">📖 로그인처치 성경 66권 선택</span>
+      <span style="font-weight:800; color:var(--gp-green); font-size:1.1rem;">📖 성경 66권 선택</span>
       <button style="background:none; border:none; color:#fff; font-size:1.4rem; cursor:pointer;" onclick="window.closeBookSelector()">✕</button>
     </div>
     
@@ -364,10 +370,11 @@
     var STORAGE_KEY = 'tongdok_journal_choi';
     var currentBook = '출애굽기';
     var currentChapter = 1;
+    var currentDayIndex = 0; // 0-indexed day
     var viewMode = 'single'; // single, dual, triple
     var baseFontSize = 17;
 
-    var journalData = {};
+    var journalData = { completedDays: {}, grace: '', lesson: '' };
     var verseMemos = {};
     var verseHighlights = {};
 
@@ -381,7 +388,7 @@
     var ntBooks = ["마태복음", "마가복음", "누가복음", "요한복음", "사도행전", "로마서", "고린도전서", "고린도후서", "갈라디아서", "에베소서", "빌립보서", "골로새서", "데살로니가전서", "데살로니가후서", "디모데전서", "디모데후서", "디도서", "빌레몬서", "히브리서", "야고보서", "베드로전서", "베드로후서", "요한1서", "요한2서", "요한3서", "유다서", "요한계시록"];
     var engBooks = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1Samuel","2Samuel","1Kings","2Kings","1Chronicles","2Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","SongofSolomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1Corinthians","2Corinthians","Galatians","Ephesians","Philippians","Colossians","1Thessalonians","2Thessalonians","1Timothy","2Timothy","Titus","Philemon","Hebrews","James","1Peter","2Peter","1John","2John","3John","Jude","Revelation"];
 
-    // Hydrate DB from script tags
+    // Hydrate DB from script tags or window.BIBLE_FULL_DB
     function hydrateFullDB() {
       if (!window.BIBLE_FULL_DB) window.BIBLE_FULL_DB = {};
       for (var k = 0; k < engBooks.length; k++) {
@@ -398,11 +405,18 @@
     function loadData() {
       try {
         var s1 = localStorage.getItem(STORAGE_KEY);
-        if (s1) journalData = JSON.parse(s1);
+        if (s1) {
+          var parsed = JSON.parse(s1);
+          if (parsed) {
+            journalData.completedDays = parsed.completedDays || {};
+            journalData.grace = parsed.grace || '';
+            journalData.lesson = parsed.lesson || '';
+          }
+        }
         var s2 = localStorage.getItem(STORAGE_KEY + '_memos');
-        if (s2) verseMemos = JSON.parse(s2);
+        if (s2) verseMemos = JSON.parse(s2) || {};
         var s3 = localStorage.getItem(STORAGE_KEY + '_hl');
-        if (s3) verseHighlights = JSON.parse(s3);
+        if (s3) verseHighlights = JSON.parse(s3) || {};
       } catch(e) {}
     }
 
@@ -413,6 +427,8 @@
         localStorage.setItem(STORAGE_KEY + '_hl', JSON.stringify(verseHighlights));
       } catch(e) {}
     }
+
+    // ALL BUTTON FUNCTIONS 100% DEFINED AND BOUND ON WINDOW
 
     window.changeFontSize = function(delta) {
       baseFontSize += delta;
@@ -428,6 +444,32 @@
         if (btn) btn.classList.toggle('active', m === mode);
       });
       renderPassage();
+    };
+
+    window.toggleComplete = function() {
+      if (!journalData.completedDays) journalData.completedDays = {};
+      var key = 'day_' + currentDayIndex;
+      journalData.completedDays[key] = !journalData.completedDays[key];
+      saveData();
+      updateCompleteButtonState();
+      updateProgress();
+      alert(journalData.completedDays[key] ? '🎉 오늘 말씀 통독이 완료되었습니다!' : '통독 완료가 취소되었습니다.');
+    };
+
+    function updateCompleteButtonState() {
+      var btn = document.getElementById('btnToggleComplete');
+      if (!btn) return;
+      var isComp = journalData.completedDays && journalData.completedDays['day_' + currentDayIndex];
+      btn.innerText = isComp ? '🎉 오늘 말씀 통독 완료됨 (클릭하여 취소)' : '✅ 오늘 말씀 통독 완료하기';
+      btn.style.background = isComp ? '#059669' : 'var(--gp-green)';
+    }
+
+    window.saveJournal = function() {
+      var eg = document.getElementById('editorGrace');
+      var el = document.getElementById('editorLesson');
+      if (eg) journalData.grace = eg.value;
+      if (el) journalData.lesson = el.value;
+      saveData();
     };
 
     function getVerseText(bName, ch, vNum) {
@@ -493,6 +535,7 @@
       }
 
       container.innerHTML = html;
+      updateCompleteButtonState();
     }
 
     // Quick Book & Chapter Navigator Modal
@@ -690,7 +733,54 @@
         if (b) b.classList.toggle('active', t === tabName);
       });
       if (tabName === 'notes') renderNotesTab();
+      if (tabName === 'schedule') renderScheduleTab();
+      if (tabName === 'journal') renderJournalTab();
     };
+
+    function updateProgress() {
+      var completedCount = 0;
+      if (journalData.completedDays) {
+        completedCount = Object.values(journalData.completedDays).filter(Boolean).length;
+      }
+      var pct = Math.round((completedCount / 126) * 100);
+      var pctEl = document.getElementById('progressPercent');
+      var fillEl = document.getElementById('progressBarFill');
+      var cntEl = document.getElementById('progressCount');
+      if (pctEl) pctEl.innerText = pct + '%';
+      if (fillEl) fillEl.style.width = pct + '%';
+      if (cntEl) cntEl.innerText = completedCount + ' / 126일 완료';
+    }
+
+    window.toggleDayComplete = function(idx) {
+      if (!journalData.completedDays) journalData.completedDays = {};
+      var key = 'day_' + idx;
+      journalData.completedDays[key] = !journalData.completedDays[key];
+      saveData();
+      renderScheduleTab();
+      updateProgress();
+    };
+
+    function renderScheduleTab() {
+      updateProgress();
+      var container = document.getElementById('scheduleListContainer');
+      if (!container) return;
+
+      var html = '';
+      for (var d = 0; d < 126; d++) {
+        var isComp = journalData.completedDays && journalData.completedDays['day_' + d];
+        var dayNum = d + 1;
+        html += '<div class="sched-card ' + (isComp ? 'completed' : '') + '">';
+        html += '  <div>';
+        html += '    <div style="font-weight:bold; font-size:0.98rem; color:' + (isComp ? '#34d399' : '#fff') + ';">' + dayNum + '일차 통독</div>';
+        html += '    <div style="font-size:0.82rem; color:var(--gp-text-sub);">구약/신약 범위 ' + dayNum + '</div>';
+        html += '  </div>';
+        html += '  <button style="padding:6px 12px; border-radius:8px; border:none; font-weight:bold; font-size:0.85rem; cursor:pointer; background:' + (isComp ? '#059669' : '#334155') + '; color:#fff;" onclick="window.toggleDayComplete(' + d + ')">';
+        html += isComp ? '✓ 완료됨' : '미완료';
+        html += '  </button>';
+        html += '</div>';
+      }
+      container.innerHTML = html;
+    }
 
     function renderNotesTab() {
       var container = document.getElementById('highlightsContainer');
@@ -723,9 +813,17 @@
       container.innerHTML = html;
     }
 
+    function renderJournalTab() {
+      var eg = document.getElementById('editorGrace');
+      var el = document.getElementById('editorLesson');
+      if (eg) eg.value = journalData.grace || '';
+      if (el) el.value = journalData.lesson || '';
+    }
+
     loadData();
     hydrateFullDB();
     renderPassage();
+    updateProgress();
   })();
   </script>
 </body>
