@@ -359,7 +359,6 @@
     var otBooks = ["창세기", "출애굽기", "레위기", "민수기", "신명기", "여호수아", "사사기", "룻기", "사무엘상", "사무엘하", "열왕기상", "열왕기하", "역대상", "역대하", "에스라", "느헤미야", "에스더", "욥기", "시편", "잠언", "전도서", "아가", "이사야", "예레미야", "예레미야애가", "에스겔", "다니엘", "호세아", "요엘", "아모스", "오바디야", "요나", "미가", "나훔", "하박국", "스바냐", "학개", "스카리야", "말라기"];
     var ntBooks = ["마태복음", "마가복음", "누가복음", "요한복음", "사도행전", "로마서", "고린도전서", "고린도후서", "갈라디아서", "에베소서", "빌립보서", "골로새서", "데살로니가전서", "데살로니가후서", "디모데전서", "디모데후서", "디도서", "빌레몬서", "히브리서", "야고보서", "베드로전서", "베드로후서", "요한1서", "요한2서", "요한3서", "유다서", "요한계시록"];
     var allBooks = otBooks.concat(ntBooks);
-    var engBooks = ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1Samuel","2Samuel","1Kings","2Kings","1Chronicles","2Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","SongofSolomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1Corinthians","2Corinthians","Galatians","Ephesians","Philippians","Colossians","1Thessalonians","2Thessalonians","1Timothy","2Timothy","Titus","Philemon","Hebrews","James","1Peter","2Peter","1John","2John","3John","Jude","Revelation"];
 
     var currentBook = '출애굽기';
     var currentChapter = 1;
@@ -377,15 +376,91 @@
     var ttsVersesList = [];
     var currentTTSIndex = 0;
 
+    var aliasMap = {
+      '창세기': ['Genesis', '창세기'],
+      '출애굽기': ['Exodus', '출애굽기'],
+      '레위기': ['Leviticus', '레위기'],
+      '민수기': ['Numbers', '민수기'],
+      '신명기': ['Deuteronomy', '신명기'],
+      '여호수아': ['Joshua', '여호수아'],
+      '사사기': ['Judges', '사사기'],
+      '룻기': ['Ruth', '룻기'],
+      '사무엘상': ['1Samuel', '사무엘상'],
+      '사무엘하': ['2Samuel', '사무엘하'],
+      '열왕기상': ['1Kings', '열왕기상'],
+      '열왕기하': ['2Kings', '열왕기하'],
+      '역대상': ['1Chronicles', '역대상'],
+      '역대하': ['2Chronicles', '역대하'],
+      '에스라': ['Ezra', '에스라'],
+      '느헤미야': ['Nehemiah', '느헤미야', '느해보야'],
+      '에스더': ['Esther', '에스더'],
+      '욥기': ['Job', '욥기'],
+      '시편': ['Psalms', '시편'],
+      '잠언': ['Proverbs', '잠언'],
+      '전도서': ['Ecclesiastes', '전도서'],
+      '아가': ['SongofSolomon', '아가'],
+      '이사야': ['Isaiah', '이사야'],
+      '예레미야': ['Jeremiah', '예레미야'],
+      '예레미야애가': ['Lamentations', '예레미야애가'],
+      '에스겔': ['Ezekiel', '에스겔'],
+      '다니엘': ['Daniel', '다니엘'],
+      '호세아': ['Hosea', '호세아'],
+      '요엘': ['Joel', '요엘'],
+      '아모스': ['Amos', '아모스'],
+      '오바디야': ['Obadiah', '오바디야'],
+      '요나': ['Jonah', '요나'],
+      '미가': ['Micah', '미가'],
+      '나훔': ['Nahum', '나훔'],
+      '하박국': ['Habakkuk', '하박국'],
+      '스바냐': ['Zephaniah', '스바냐'],
+      '학개': ['Haggai', '학개'],
+      '스카리야': ['Zechariah', '스카리야'],
+      '말라기': ['Malachi', '말라기'],
+      '마태복음': ['Matthew', '마태복음'],
+      '마가복음': ['Mark', '마가복음'],
+      '누가복음': ['Luke', '누가복음'],
+      '요한복음': ['John', '요한복음'],
+      '사도행전': ['Acts', '사도행전'],
+      '로마서': ['Romans', '로마서'],
+      '고린도전서': ['1Corinthians', '고린도전서'],
+      '고린도후서': ['2Corinthians', '고린도후서'],
+      '갈라디아서': ['Galatians', '갈라디아서'],
+      '에베소서': ['Ephesians', '에베소서'],
+      '빌립보서': ['Philippians', '빌립보서'],
+      '골로새서': ['Colossians', '골로새서'],
+      '데살로니가전서': ['1Thessalonians', '데살로니가전서'],
+      '데살로니가후서': ['2Thessalonians', '데살로니가후서'],
+      '디모데전서': ['1Timothy', '디모데전서'],
+      '디모데후서': ['2Timothy', '디모데후서'],
+      '디도서': ['Titus', '디도서'],
+      '빌레몬서': ['Philemon', '빌레몬서'],
+      '히브리서': ['Hebrews', '히브리서'],
+      '야고보서': ['James', '야고보서'],
+      '베드로전서': ['1Peter', '베드로전서'],
+      '베드로후서': ['2Peter', '베드로후서'],
+      '요한1서': ['1John', '요한1서'],
+      '요한2서': ['2John', '요한2서'],
+      '요한3서': ['3John', '요한3서'],
+      '유다서': ['Jude', '유다서'],
+      '요한계시록': ['Revelation', '요한계시록']
+    };
+
     function hydrateFullDB() {
       if (!window.BIBLE_FULL_DB) window.BIBLE_FULL_DB = {};
-      for (var k = 0; k < engBooks.length; k++) {
-        var engB = engBooks[k];
-        var korB = allBooks[k];
-        var loaded = window['bible_' + engB] || window['bible_' + korB] || (window.BIBLE_FULL_DB ? (window.BIBLE_FULL_DB[korB] || window.BIBLE_FULL_DB[engB]) : null);
-        if (loaded) {
-          window.BIBLE_FULL_DB[korB] = loaded;
-          window.BIBLE_FULL_DB[engB] = loaded;
+      
+      for (var stdName in aliasMap) {
+        var aliases = aliasMap[stdName];
+        var foundData = null;
+        for (var i = 0; i < aliases.length; i++) {
+          if (window.BIBLE_FULL_DB[aliases[i]]) {
+            foundData = window.BIBLE_FULL_DB[aliases[i]];
+            break;
+          }
+        }
+        if (foundData) {
+          for (var j = 0; j < aliases.length; j++) {
+            window.BIBLE_FULL_DB[aliases[j]] = foundData;
+          }
         }
       }
     }
@@ -511,12 +586,13 @@
         return;
       }
 
-      var vKeys = Array.isArray(chObj) ? chObj.map(function(_, i){ return i+1; }) : Object.keys(chObj);
+      var isArr = Array.isArray(chObj);
+      var vKeys = isArr ? chObj.map(function(_, i){ return i+1; }) : Object.keys(chObj);
       var html = '<h4 style="color:var(--accent-gold); margin:10px 0 14px 0; font-size:1.15rem; border-bottom:1px solid #334155; padding-bottom:6px;">' + currentBook + ' ' + currentChapter + '장</h4>';
 
       for (var idx = 0; idx < vKeys.length; idx++) {
-        var vNum = vKeys[idx];
-        var textGAE = Array.isArray(chObj) ? chObj[vNum - 1] : chObj[vNum];
+        var vNum = isArr ? (idx + 1) : vKeys[idx];
+        var textGAE = isArr ? chObj[idx] : chObj[vNum];
         var memoKey = currentBook + '_' + currentChapter + '_' + vNum;
         var hlClass = verseHighlights[memoKey] || '';
         var memoText = verseMemos[memoKey] || '';
@@ -650,7 +726,8 @@
       hydrateFullDB();
       var db = window.BIBLE_FULL_DB[selectedActionBook];
       var chObj = db ? (db[selectedActionCh] || db[String(selectedActionCh)]) : null;
-      var verseText = chObj ? (Array.isArray(chObj) ? chObj[selectedActionVNum - 1] : chObj[selectedActionVNum]) : '';
+      var isArr = Array.isArray(chObj);
+      var verseText = chObj ? (isArr ? chObj[selectedActionVNum - 1] : chObj[selectedActionVNum]) : '';
       var memo = document.getElementById('actionMemoInput').value.trim();
 
       var fullText = '📖 [' + selectedActionBook + ' ' + selectedActionCh + ':' + selectedActionVNum + ']
@@ -818,7 +895,8 @@
         var vNum = parts[2];
         var db = window.BIBLE_FULL_DB ? window.BIBLE_FULL_DB[bName] : null;
         var chObj = db ? (db[c] || db[String(c)]) : null;
-        var verseText = chObj ? (Array.isArray(chObj) ? chObj[vNum - 1] : chObj[vNum]) : '';
+        var isArr = Array.isArray(chObj);
+        var verseText = chObj ? (isArr ? chObj[vNum - 1] : chObj[vNum]) : '';
         var hl = verseHighlights[key] || '';
         var memo = verseMemos[key] || '';
 
